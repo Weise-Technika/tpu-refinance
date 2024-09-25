@@ -17,7 +17,7 @@ services:
       - app-network
     restart: always
     ports:
-      - "3000:3000"
+      - "2083:3000"
     volumes:
       - ./db-orm:/app
     environment:
