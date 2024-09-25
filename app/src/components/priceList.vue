@@ -417,7 +417,7 @@
 
     onMounted(async () => {
         try {
-            const response = await axios.get('https://ref.paragonusedcars.com:2083/priceCarsBrand/1');
+            const response = await axios.get('http://178.128.121.232:2083/priceCarsBrand/1');
             priceList.value = response.data;
             titleList.value = [];
             yearList.value = [];
@@ -431,7 +431,7 @@
     const getTitle = async (event) => {
         dataBrand.value = event.target.value;
         try {
-            const response = await axios.get(`https://ref.paragonusedcars.com:2083/priceCarsBrand/1/${dataBrand.value}`);
+            const response = await axios.get(`http://178.128.121.232:2083/priceCarsBrand/1/${dataBrand.value}`);
             titleList.value = response.data;
             yearList.value = [];
             genList.value = [];
@@ -449,7 +449,7 @@
     const getYear = async (event) => {
         dataTitle.value = event.target.value;
         try {
-            const response = await axios.get(`https://ref.paragonusedcars.com:2083/priceCarsBrand/1/${dataBrand.value}/${dataTitle.value}`);
+            const response = await axios.get(`http://178.128.121.232:2083/priceCarsBrand/1/${dataBrand.value}/${dataTitle.value}`);
             yearList.value = response.data;
             genList.value = [];
             dataPrice.value = '0';
@@ -469,7 +469,7 @@
             if(dataGen.value === '0') {
                 genList.value = [];
             } else {
-                const response = await axios.get(`https://ref.paragonusedcars.com:2083/priceCarsBrand/1/${dataBrand.value}/${dataTitle.value}/${dataGen.value}`);
+                const response = await axios.get(`http://178.128.121.232:2083/priceCarsBrand/1/${dataBrand.value}/${dataTitle.value}/${dataGen.value}`);
                 genList.value = response.data;
             }
             document.getElementById('gen').classList.remove('hidden');
@@ -486,7 +486,7 @@
     const getPrice = async (event) => {
         dataPrice.value = event.target.value;
         try {
-            const response = await axios.get(`https://ref.paragonusedcars.com:2083/priceCarsBrand/1/${dataBrand.value}/${dataTitle.value}/${dataGen.value}/${dataPrice.value}`);
+            const response = await axios.get(`http://178.128.121.232:2083/priceCarsBrand/1/${dataBrand.value}/${dataTitle.value}/${dataGen.value}/${dataPrice.value}`);
             const totalPrice =  Number(response.data);
             dataPrice.value = totalPrice.toString();
             document.getElementById('price').classList.remove('hidden');
