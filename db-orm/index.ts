@@ -2,20 +2,13 @@ import express from 'express';
 import { PrismaClient } from '@prisma/client';
 
 const cors = require('cors');
+import fs from 'fs';
+import https from 'https';
 const prisma = new PrismaClient();
 const app = express();
 
 app.use(express.json());
 app.use(cors());
-app.enable('trust proxy');
-app.set('trust proxy', true);
-
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
-    next();
-});
 
 app.get('/priceCarsBrand/:group', async (req,res) => {
     const { group } = req.params;
@@ -117,6 +110,12 @@ app.post('/importPriceList', async (req,res) => {
 
 });
 
-app.listen(3000, () => {
-    console.log('Server is running on http://localhost:3000');
+
+const sslOptions = {
+    key: fs.readFileSync('cert/private-key.pem'),
+    cert: fs.readFileSync('cert/certificate.pem')
+};
+
+https.createServer(sslOptions, app).listen(3000, () => {
+    console.log('Server is running on https://localhost:3000');
 });
