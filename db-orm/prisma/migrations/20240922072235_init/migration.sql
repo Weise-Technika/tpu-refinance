@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "finance_price" ALTER COLUMN "year" SET DATA TYPE TEXT,
+ALTER COLUMN "price" SET DATA TYPE TEXT;
