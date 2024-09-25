@@ -431,7 +431,7 @@
     const getTitle = async (event) => {
         dataBrand.value = event.target.value;
         try {
-            const response = await axios.get(`http://localhost:3000/priceCarsBrand/1/${dataBrand.value}`);
+            const response = await axios.get(`https://ref.paragonusedcars.com:2083/priceCarsBrand/1/${dataBrand.value}`);
             titleList.value = response.data;
             yearList.value = [];
             genList.value = [];
@@ -449,7 +449,7 @@
     const getYear = async (event) => {
         dataTitle.value = event.target.value;
         try {
-            const response = await axios.get(`http://localhost:3000/priceCarsBrand/1/${dataBrand.value}/${dataTitle.value}`);
+            const response = await axios.get(`https://ref.paragonusedcars.com:2083/priceCarsBrand/1/${dataBrand.value}/${dataTitle.value}`);
             yearList.value = response.data;
             genList.value = [];
             dataPrice.value = '0';

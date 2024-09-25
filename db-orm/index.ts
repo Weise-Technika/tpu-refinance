@@ -6,7 +6,7 @@ const prisma = new PrismaClient();
 const app = express();
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({ origin: '*', credentials: true, methods: ['GET','POST'], allowedHeaders: 'Content-Type', preflightContinue: false, optionsSuccessStatus: 204}));
 
 app.get('/priceCarsBrand/:group', async (req,res) => {
     const { group } = req.params;
