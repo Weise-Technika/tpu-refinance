@@ -9,7 +9,7 @@ COPY . .
 
 RUN bun astro preferences disable devToolbar
 
-ENV PORT=4321
-EXPOSE 4321
+ENV PORT=443
+EXPOSE 443
 
 CMD ["bun", "start"]

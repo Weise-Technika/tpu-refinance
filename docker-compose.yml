@@ -5,7 +5,7 @@ services:
     container_name: app
     restart: always
     ports:
-      - "443:4321"
+      - "80:443"
     volumes:
       - ./app:/app
     depends_on:

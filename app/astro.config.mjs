@@ -15,7 +15,7 @@ export default defineConfig({
         cert: readFileSync(certPath),
         key: readFileSync(keyPath)
       },
-      port: 4321,
+      port: 443,
       strictPort: true
     },
     plugins: [basicSsl()]
