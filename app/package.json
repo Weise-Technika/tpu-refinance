@@ -13,6 +13,7 @@
     "@astrojs/check": "^0.9.3",
     "@astrojs/node": "^8.3.4",
     "@astrojs/vue": "^4.5.1",
+    "@vitejs/plugin-basic-ssl": "^1.1.0",
     "astro": "^4.15.8",
     "astro-bootstrap": "^0.7.0",
     "axios": "^1.7.7",
