@@ -110,10 +110,9 @@ app.post('/importPriceList', async (req,res) => {
 
 });
 
-
 const sslOptions = {
-    key: fs.readFileSync('../cert/private-key.pem'),
-    cert: fs.readFileSync('../cert/certificate.pem')
+    key: fs.readFileSync('cert/private-key.pem'),
+    cert: fs.readFileSync('cert/certificate.pem')
 };
 
 https.createServer(sslOptions, app).listen(3000, () => {

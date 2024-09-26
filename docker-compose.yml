@@ -1,43 +1,32 @@
 version: '3.7'
 services:
-  # app:
-  #   build: ./app
-  #   container_name: app
-  #   restart: always
-  #   networks:
-  #     - app-network
-  #   ports:
-  #     - "80:8080"
-  #   volumes:
-  #     - ./app:/app
-  #   depends_on:
-  #     - prisma
+  app:
+    build: ./app
+    container_name: app
+    restart: always
+    ports:
+      - "80:8080"
+    volumes:
+      - ./app:/app
+    depends_on:
+      - prisma
   prisma:
     build: ./db-orm
     container_name: prisma
     restart: always
-    networks:
-    - app-network
     ports:
       - "2083:3000"
     volumes:
       - ./db-orm:/app
     environment:
-      - SERVER_ENV=production
-      - DATABASE_URL=postgresql://postgres:postgres@db:5432/postgres
+      - DATABASE_URL=postgresql://postgres:postgres@host.docker.internal:5432/postgres?schema=public
     depends_on:
       - db
   db:
     image: postgres
     container_name: db
     restart: always
-    environment:
-      - POSTGRES_HOST_AUTH_METHOD=trust
     ports:
       - "5432:5432"
     volumes:
       - ./database:/var/lib/postgresql/data
-
-networks:
-  app-network:
-    driver: bridge
