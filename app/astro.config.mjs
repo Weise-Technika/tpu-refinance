@@ -16,9 +16,7 @@ export default defineConfig({
 
   output: 'server',
   adapter: cloudflare({
-    // Add your Cloudflare configuration here
-    // For example, if you need to specify a certificate:
-    certificate: 'cert/certificate.pem',
-    key: 'cert/private-key.pem'
+    certificate: '../cert/certificate.pem',
+    key: '../cert/private-key.pem'
   })
 });
