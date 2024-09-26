@@ -10,9 +10,14 @@ const keyPath = join('cert/private-key.pem');
 export default defineConfig({
   integrations: [vue()],
   vite: {
-    plugins: [basicSsl({
-      cert: readFileSync(certPath),
-      key: readFileSync(keyPath)
-    })]
+    server: {
+      https: {
+        cert: readFileSync(certPath),
+        key: readFileSync(keyPath)
+      },
+      port: 4321,
+      strictPort: true
+    },
+    plugins: [basicSsl()]
   }
 });
