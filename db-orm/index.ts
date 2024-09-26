@@ -2,8 +2,8 @@ import express from 'express';
 import { PrismaClient } from '@prisma/client';
 
 const cors = require('cors');
-// import fs from 'fs';
-// import https from 'https';
+import fs from 'fs';
+import https from 'https';
 const prisma = new PrismaClient();
 const app = express();
 
@@ -111,15 +111,15 @@ app.post('/importPriceList', async (req,res) => {
 });
 
 
-// const sslOptions = {
-//     key: fs.readFileSync('../cert/private-key.pem'),
-//     cert: fs.readFileSync('../cert/certificate.pem')
-// };
+const sslOptions = {
+    key: fs.readFileSync('../cert/private-key.pem'),
+    cert: fs.readFileSync('../cert/certificate.pem')
+};
 
-// https.createServer(sslOptions, app).listen(3000, () => {
-//     console.log('Server is running on https://localhost:3000');
-// });
-
-app.listen(3000, () => {
-    console.log('Server is running on http://localhost:3000');
+https.createServer(sslOptions, app).listen(3000, () => {
+    console.log('Server is running on https://localhost:3000');
 });
+
+// app.listen(3000, () => {
+//     console.log('Server is running on http://localhost:3000');
+// });

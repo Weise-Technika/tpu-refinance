@@ -1,21 +1,23 @@
 version: '3.7'
 services:
-  app:
-    build: ./app
-    container_name: app
-    restart: always
-    ports:
-      - "80:8080"
-    volumes:
-      - ./app:/app
-    depends_on:
-      - prisma
+  # app:
+  #   build: ./app
+  #   container_name: app
+  #   restart: always
+  #   networks:
+  #     - app-network
+  #   ports:
+  #     - "80:8080"
+  #   volumes:
+  #     - ./app:/app
+  #   depends_on:
+  #     - prisma
   prisma:
     build: ./db-orm
     container_name: prisma
-    networks:
-      - app-network
     restart: always
+    networks:
+    - app-network
     ports:
       - "2083:3000"
     volumes:
@@ -28,8 +30,6 @@ services:
   db:
     image: postgres
     container_name: db
-    networks:
-      - app-network
     restart: always
     environment:
       - POSTGRES_HOST_AUTH_METHOD=trust
@@ -40,3 +40,4 @@ services:
 
 networks:
   app-network:
+    driver: bridge
