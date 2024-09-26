@@ -1,23 +1,24 @@
 import { defineConfig } from 'astro/config';
-import basicSsl from '@vitejs/plugin-basic-ssl'
 import vue from '@astrojs/vue';
-import { readFileSync } from 'fs';
-import { join } from 'path';
 
-const certPath = join('cert/certificate.pem');
-const keyPath = join('cert/private-key.pem');
+import cloudflare from '@astrojs/cloudflare';
 
 export default defineConfig({
   integrations: [vue()],
+
   vite: {
     server: {
-      https: {
-        cert: readFileSync(certPath),
-        key: readFileSync(keyPath)
+      watch: {
+        usePolling: true
       },
-      port: 443,
-      strictPort: true
     },
-    plugins: [basicSsl()]
-  }
+  },
+
+  output: 'server',
+  adapter: cloudflare({
+    // Add your Cloudflare configuration here
+    // For example, if you need to specify a certificate:
+    certificate: 'cert/certificate.pem',
+    key: 'cert/private-key.pem'
+  })
 });
