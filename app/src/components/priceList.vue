@@ -54,12 +54,12 @@
 
                                     <div class="row mt-1 mb-3 hidden" id="govFee">
                                         <div class="col-12">
-                                            <label>ประเภทรถยนต์เพื่อคำนวนค่า พ.ร.บ.</label>
+                                            <p class="mb-2">ประเภทรถยนต์เพื่อคำนวนค่า พ.ร.บ.</p>
                                             <select class="form-select mt-1" id="carType" @change="carTypeList()">
-                                                <option value="0">= โปรดเลือกประเภทรถยนต์ =</option>
-                                                <option value="646">รถยนต์เก๋ง</option>
-                                                <option value="968">รถยนต์กระบะ</option>
-                                                <option value="1183">รถตู้ / SUV</option>
+                                                <option value="0">ไม่ต่อ พ.ร.บ.</option>
+                                                <option value="646">ต่อ พ.ร.บ. รถยนต์เก๋ง</option>
+                                                <option value="968">ต่อ พ.ร.บ. รถยนต์กระบะ</option>
+                                                <option value="1183">ต่อ พ.ร.บ. รถตู้ / SUV</option>
                                             </select>
                                         </div>
                                     </div>
@@ -81,7 +81,7 @@
 
                             <div class="row mt-3 hidden" id="loan">
                                 <div class="col-12">
-                                    <label>จำนวนยอดคงค้างคงเหลือ</label>
+                                    <p class="mb-2">จำนวนยอดคงค้างคงเหลือ</p>
                                     <input class="form-control mt-1" type="number" v-model="is_loan">
                                 </div>
                             </div>
@@ -101,67 +101,69 @@
                     <div class="card-rf mt-3 mb-4">
                         <div class="row mt-3">
                             <table class="cost">
-                                <tr>
-                                    <td>
-                                        <p class="tiny-space">เงินมัดจำค่าธรรมเนียมดำเนินการ</p>
-                                        <small>ได้คืนโดยบวกคืนไปกับยอดเงินคงเหลือ</small>
-                                    </td>
-                                    <td width="100px" class="text-right">2,000</td>
-                                </tr>
-                                <tr>
-                                    <td>ค่าธรรมเนียมดำเนินการจัดไฟแนนซ์</td>
-                                    <td class="text-right">10,000</td>
-                                </tr>
-                                <tr>
-                                    <td>ค่าเช็คต้น</td>
-                                    <td class="text-right">150</td>
-                                </tr>
-                                <tr>
-                                    <td>ค่าโอนอากรในส่วนจัดใหม่</td>
-                                    <td class="text-right">{{ new Intl.NumberFormat().format(transfer) }}</td>
-                                </tr>
-                                <tr>
-                                    <td>ค่าทำสัญญาจัดไฟแนนซ์</td>
-                                    <td class="text-right">2,000</td>
-                                </tr>
-                                <tr>
-                                    <td>ค่าภาษี</td>
-                                    <td><input class="form-control tiny-input" v-model="tax"></td>
-                                </tr>
-                                <tr>
-                                    <td>ค่า พ.ร.บ.</td>
-                                    <td class="text-right">{{ Intl.NumberFormat().format(carType) }}</td>
-                                </tr>
-                                <tr>
-                                    <td>ค่าประกันตัวรถ</td>
-                                    <td><input class="form-control tiny-input" v-model="insureCar"></td>
-                                </tr>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <p class="tiny-space">เงินมัดจำค่าธรรมเนียมดำเนินการ</p>
+                                            <small>ได้คืนโดยบวกคืนไปกับยอดเงินคงเหลือ</small>
+                                        </td>
+                                        <td width="100px">
+                                            <input class="form-control tiny-input" v-model="bookingFee">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>ค่าธรรมเนียมดำเนินการจัดไฟแนนซ์</td>
+                                        <td class="text-right">10,000</td>
+                                    </tr>
+                                    <tr>
+                                        <td>ค่าเช็คต้น</td>
+                                        <td class="text-right">{{ checkFee }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>ค่าโอนอากรในส่วนจัดใหม่</td>
+                                        <td class="text-right">{{ new Intl.NumberFormat().format(transfer) }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>ค่าทำสัญญาจัดไฟแนนซ์</td>
+                                        <td class="text-right">2,000</td>
+                                    </tr>
+                                    <tr>
+                                        <td>ค่าภาษี</td>
+                                        <td><input class="form-control tiny-input" v-model="tax"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>ค่า พ.ร.บ.</td>
+                                        <td class="text-right">{{ Intl.NumberFormat().format(carType) }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>ค่าประกันตัวรถ</td>
+                                        <td><input class="form-control tiny-input" v-model="insureCar"></td>
+                                    </tr>
 
-                                <tr>
-                                    <td>ค่าประกันชีวิต</td>
-                                    <td><input class="form-control tiny-input" v-model="insureLife"></td>
-                                </tr>
+                                    <tr>
+                                        <td>ค่าประกันชีวิต</td>
+                                        <td><input class="form-control tiny-input" v-model="insureLife"></td>
+                                    </tr>
 
-                                <tr class="hidden" id="loan-fee">
-                                    <td>ค่าธรรมเนียมปิดบัญชี 3%</td>
-                                    <td class="text-right">{{ Intl.NumberFormat().format(calLoan) }}</td>
-                                </tr>
+                                    <tr class="hidden" id="loan-fee">
+                                        <td>ค่าธรรมเนียมปิดบัญชี 3%</td>
+                                        <td class="text-right">{{ Intl.NumberFormat().format(Number(calLoan.toFixed(2))) }}</td>
+                                    </tr>
 
-                                <tr class="hidden" id="loan-process">
-                                    <td>ค่าดำเนินการปิดบัญชี</td>
-                                    <td class="text-right">1,000</td>
-                                </tr>
+                                    <tr class="hidden" id="loan-process">
+                                        <td>ค่าดำเนินการปิดบัญชี</td>
+                                        <td class="text-right">1,000</td>
+                                    </tr>
 
-                                <tr class="hidden" id="loan-transfer">
-                                    <td>ค่าโอนตามสัญญาไฟแนนซ์เดิม</td>
-                                    <td class="text-right">2,000</td>
-                                </tr>
-
-                                <tr>
-                                    <td>ค่าใช้จ่ายอื่น</td>
-                                    <td><input class="form-control tiny-input" v-model="otherFee"></td>
-                                </tr>
-
+                                    <tr class="hidden" id="loan-transfer">
+                                        <td>ค่าโอนตามสัญญาไฟแนนซ์เดิม</td>
+                                        <td class="text-right">2,000</td>
+                                    </tr>
+                                    <tr>
+                                        <td>ค่าใช้จ่ายอื่น</td>
+                                        <td><input class="form-control tiny-input" v-model="otherFee"></td>
+                                    </tr>
+                                </tbody>
                             </table>
                         </div>
 
@@ -175,27 +177,29 @@
                     <div class="card-rf mt-2 mb-5">
                         <div class="row mt-3">
                             <table class="summary">
-                                <tr>
-                                    <td>ยอดสินชื่อรถยนต์ (จัดใหม่ {{ limit }}%)</td>
-                                    <td class="text-right">{{ new Intl.NumberFormat().format(showLimitPrice) }}</td>
-                                </tr>
-                                <tr>
-                                    <td>ยอดหนี้คงค้าง</td>
-                                    <td class="text-right">- {{ Intl.NumberFormat().format(is_loan) }}</td>
-                                </tr>
-                                <tr>
-                                    <td>ค่าใช้จ่าย</td>
-                                    <td class="text-right" width="100px" >- {{ Intl.NumberFormat().format(cost) }}</td>
-                                </tr>
+                                <tbody>
+                                    <tr>
+                                        <td>ยอดสินชื่อรถยนต์ (จัดใหม่ {{ limit }}%)</td>
+                                        <td class="text-right">{{ new Intl.NumberFormat().format(showLimitPrice) }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>ยอดหนี้คงค้าง</td>
+                                        <td class="text-right">- {{ Intl.NumberFormat().format(is_loan) }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>ค่าใช้จ่าย</td>
+                                        <td class="text-right" width="100px" >- {{ Intl.NumberFormat().format(Number(cost.toFixed(2))) }}</td>
+                                    </tr>
 
-                                <tr>
-                                    <td>คืนเงินมัดจำค่าธรรมเนียมดำเนินการ</td>
-                                    <td class="text-right" width="100px">2,000</td>
-                                </tr>
+                                    <tr>
+                                        <td>คืนเงินมัดจำค่าธรรมเนียมดำเนินการ</td>
+                                        <td class="text-right" width="100px">2,000</td>
+                                    </tr>
+                                </tbody>
                             </table>
                             <div class="tatalCashBack mt-2">
                                 <p class="mb-3 mt-0">เงินคงเหลือทั้งสื้น</p>
-                                <h1 class="text-center mb-0">{{ Intl.NumberFormat().format(totalRefinance) }} บาท</h1>
+                                <h1 class="text-center mb-0">{{ Intl.NumberFormat().format(Number(totalRefinance.toFixed(2))) }} บาท</h1>
                             </div>
                         </div>
 
@@ -203,71 +207,73 @@
                             <div class="col-12 calNewFn">
                                 <p class="mb-2">อัตราดอกเบี้ยรีไฟแนนซ์ (<a href="#" target="_blank">ข้อมูลอัตราดอกเบี้ย</a>)</p>
                                 <table class="table table-striped">
-                                    <tr>
-                                        <td class="">
-                                            จำนวนงวด
-                                        </td>
-                                        <td>ดอกเบี้ย</td>
-                                        <td class="text-right">
-                                            ผ่อนต่องวด
-                                        </td>
-                                        
-                                    </tr>
-                                    <tr>
-                                        <td class="">
-                                            ผ่อน 36 งวด
-                                        </td>
-                                        <td width="70px">
-                                            <input class="form-control tiny-input" type="number" v-model="loanRate36">
-                                        </td>
-                                        <td class="text-right">
-                                            {{ Intl.NumberFormat().format(Number(payMonh36.toFixed(2))) }} บาท
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="">
-                                            ผ่อน 48 งวด
-                                        </td>
-                                        <td width="80px">
-                                            <input class="form-control tiny-input" type="number" v-model="loanRate48">
-                                        </td>
-                                        <td class="text-right">
-                                            {{ Intl.NumberFormat().format(Number(payMonth48.toFixed(2))) }} บาท
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="">
-                                            ผ่อน 60 งวด
-                                        </td>
-                                        <td width="70px">
-                                            <input class="form-control tiny-input" type="number" v-model="loanRate60">
-                                        </td>
-                                        <td class="text-right">
-                                            {{ Intl.NumberFormat().format(Number(payMonth60.toFixed(2))) }} บาท
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="">
-                                            ผ่อน 72 งวด
-                                        </td>
-                                        <td width="70px">
-                                            <input class="form-control tiny-input" type="number" v-model="loanRate72">
-                                        </td>
-                                        <td class="text-right">
-                                            {{ Intl.NumberFormat().format(Number(payMonth72.toFixed(2))) }} บาท
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="">
-                                            ผ่อน 84 งวด
-                                        </td>
-                                        <td width="70px">
-                                            <input class="form-control tiny-input" type="number" v-model="loanRate84">
-                                        </td>
-                                        <td class="text-right">
-                                            {{ Intl.NumberFormat().format(Number(payMonth84.toFixed(2))) }} บาท
-                                        </td>
-                                    </tr>
+                                    <tbody>
+                                        <tr>
+                                            <td class="">
+                                                จำนวนงวด
+                                            </td>
+                                            <td>ดอกเบี้ย</td>
+                                            <td class="text-right">
+                                                ผ่อนต่องวด
+                                            </td>
+                                            
+                                        </tr>
+                                        <tr>
+                                            <td class="">
+                                                ผ่อน 36 งวด
+                                            </td>
+                                            <td width="70px">
+                                                <input class="form-control tiny-input" type="number" v-model="loanRate36">
+                                            </td>
+                                            <td class="text-right">
+                                                {{ Intl.NumberFormat().format(Number(payMonh36.toFixed(2))) }} บาท
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="">
+                                                ผ่อน 48 งวด
+                                            </td>
+                                            <td width="80px">
+                                                <input class="form-control tiny-input" type="number" v-model="loanRate48">
+                                            </td>
+                                            <td class="text-right">
+                                                {{ Intl.NumberFormat().format(Number(payMonth48.toFixed(2))) }} บาท
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="">
+                                                ผ่อน 60 งวด
+                                            </td>
+                                            <td width="70px">
+                                                <input class="form-control tiny-input" type="number" v-model="loanRate60">
+                                            </td>
+                                            <td class="text-right">
+                                                {{ Intl.NumberFormat().format(Number(payMonth60.toFixed(2))) }} บาท
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="">
+                                                ผ่อน 72 งวด
+                                            </td>
+                                            <td width="70px">
+                                                <input class="form-control tiny-input" type="number" v-model="loanRate72">
+                                            </td>
+                                            <td class="text-right">
+                                                {{ Intl.NumberFormat().format(Number(payMonth72.toFixed(2))) }} บาท
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="">
+                                                ผ่อน 84 งวด
+                                            </td>
+                                            <td width="70px">
+                                                <input class="form-control tiny-input" type="number" v-model="loanRate84">
+                                            </td>
+                                            <td class="text-right">
+                                                {{ Intl.NumberFormat().format(Number(payMonth84.toFixed(2))) }} บาท
+                                            </td>
+                                        </tr>
+                                    </tbody>
                                 </table>
                                 <p>ยอดผ่อนรวมภาษีมูลค่าเพิ่ม 7% แล้ว</p>
                             </div>
@@ -372,9 +378,9 @@
     //Cal New Loan
     //ยอดสินเชื่อใหม่ตาม %
     const showLimitPrice = ref(0);
-    const bookingFee = ref(2000);
+    let bookingFee = ref(2000);
     const processFee = ref(10000);
-    const checkFee = ref(150);
+    const checkFee = ref(0);
     const transfer = ref(0);
     const signContractFee = ref(2000);
     const tax = ref(0);
@@ -382,8 +388,10 @@
     const carType = ref(0);
     const insureCar = ref(0);
     const insureLife = ref(0);
-    const calLoan = computed(() => is_loan.value * 0.03);
-    const advanceOldAccoiunt = ref(0);
+    const calLoan = computed(() => {
+        return ((cost.value + is_loan.value) - bookingFee.value) * 0.03;
+    });
+    const advanceOldAccount = ref(1000);
     const oldTransferFn = ref(2000);
     const otherFee = ref(0);
 
@@ -401,10 +409,10 @@
 
     //Cost Cal
     const cost = computed(() => {
-        let totalCost = bookingFee.value + processFee.value + checkFee.value + transfer.value + signContractFee.value + Number(tax.value) + carType.value + Number(insureCar.value) + Number(insureLife.value) + Number(otherFee.value);
+        let totalCost = Number(bookingFee.value) + processFee.value + checkFee.value + transfer.value + signContractFee.value + Number(tax.value) + carType.value + Number(insureCar.value) + Number(insureLife.value) + Number(otherFee.value);
 
         if (am_loan.value === true) {
-            totalCost += calLoan.value + oldTransferFn.value + advanceOldAccoiunt.value + oldTransferFn.value;
+            totalCost += calLoan.value + oldTransferFn.value + advanceOldAccount.value;
         }
 
         return totalCost;
@@ -417,7 +425,7 @@
 
     onMounted(async () => {
         try {
-            const response = await axios.get('https://ref.paragonusedcars.com:2083/priceCarsBrand/1');
+            const response = await axios.get(`https://ref.paragonusedcars.com:2083/priceCarsBrand/1`);
             priceList.value = response.data;
             titleList.value = [];
             yearList.value = [];
@@ -426,6 +434,7 @@
         } catch (error) {
             console.log(error);
         }
+        
     });
 
     const getTitle = async (event) => {
@@ -494,6 +503,7 @@
 
             transfer.value = (totalPrice / 100) + 3000;
             document.getElementById('govFee').classList.remove('hidden');
+            document.getElementById('loanStatus').classList.remove('hidden');
 
         } catch (error) {
             console.log(error);
@@ -507,6 +517,7 @@
         document.getElementById('loan-transfer').classList.remove('hidden');
         am_loan.value = true;
         document.getElementById('step2').classList.remove('hidden');
+        checkFee.value = 150;
     }
 
     const noLoan = () => {
@@ -516,7 +527,7 @@
         document.getElementById('loan-transfer').classList.add('hidden');
         am_loan.value = false;
         document.getElementById('step2').classList.remove('hidden');
-
+        checkFee.value = 0;
     }
 
     const limitLoan = () => {
@@ -527,7 +538,6 @@
     
     const carTypeList = () => {
         carType.value = Number((document.getElementById('carType') as HTMLSelectElement).value);
-        document.getElementById('loanStatus').classList.remove('hidden');
     }
 
 </script>
