@@ -2,7 +2,7 @@
     <div class="container">
 
         <div class="row justify-content-center">
-            <div class="col-12 col-md-6">
+            <div class="col-12 col-md-6 mb-4">
 
                 <div class="mt-4 mb-2">
                     <div class="heading">1</div>
