@@ -738,7 +738,7 @@ const totalRefinance = computed(() => {
 
 onMounted(async () => {
   try {
-    const response = await axios.get(`http://localhost:2083/priceCarsBrand/1`);
+    const response = await axios.get(`https://ref.paragonusedcars.com:2083/priceCarsBrand/1`);
     priceList.value = Array.isArray(response.data) ? response.data : [];
     titleList.value = [];
     yearList.value = [];
@@ -753,7 +753,7 @@ const getTitle = async (event) => {
   dataBrand.value = event.target.value;
   try {
     const response = await axios.get(
-      `http://localhost:2083/priceCarsBrand/1/${dataBrand.value}`
+      `https://ref.paragonusedcars.com:2083/priceCarsBrand/1/${dataBrand.value}`
     );
     titleList.value = Array.isArray(response.data) ? response.data : [];
     yearList.value = [];
@@ -772,7 +772,7 @@ const getYear = async (event) => {
   dataTitle.value = event.target.value;
   try {
     const response = await axios.get(
-      `http://localhost:2083/priceCarsBrand/1/${dataBrand.value}/${dataTitle.value}`
+      `https://ref.paragonusedcars.com:2083/priceCarsBrand/1/${dataBrand.value}/${dataTitle.value}`
     );
     yearList.value = Array.isArray(response.data) ? response.data : [];
     genList.value = [];
@@ -793,7 +793,7 @@ const getGen = async (event) => {
       genList.value = [];
     } else {
       const response = await axios.get(
-        `http://localhost:2083/priceCarsBrand/1/${dataBrand.value}/${dataTitle.value}/${dataGen.value}`
+        `https://ref.paragonusedcars.com:2083/priceCarsBrand/1/${dataBrand.value}/${dataTitle.value}/${dataGen.value}`
       );
       genList.value = Array.isArray(response.data) ? response.data : [];
     }
@@ -811,7 +811,7 @@ const getPrice = async (event) => {
   dataPrice.value = event.target.value;
   try {
     const response = await axios.get(
-      `http://localhost:2083/priceCarsBrand/1/${dataBrand.value}/${dataTitle.value}/${dataGen.value}/${dataPrice.value}`
+      `https://ref.paragonusedcars.com:2083/priceCarsBrand/1/${dataBrand.value}/${dataTitle.value}/${dataGen.value}/${dataPrice.value}`
     );
     const totalPrice = Number(response.data);
     dataPrice.value = totalPrice.toString();

@@ -115,10 +115,10 @@ const sslOptions = {
     cert: fs.readFileSync('cert/certificate.pem')
 };
 
-// https.createServer(sslOptions, app).listen(3000, () => {
-//     console.log('Server is running on https://localhost:3000');
-// });
-
-app.listen(3000, () => {
-    console.log('Server is running on http://localhost:3000');
+https.createServer(sslOptions, app).listen(3000, () => {
+    console.log('Server is running on https://localhost:3000');
 });
+
+// app.listen(3000, () => {
+//     console.log('Server is running on http://localhost:3000');
+// });
