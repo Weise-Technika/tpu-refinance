@@ -344,7 +344,7 @@
               <table class="summary">
                 <tbody>
                   <tr>
-                    <td>ยอดสินชื่อรถยนต์ (จัดใหม่ {{ limit }}%)</td>
+                    <td>ยอดสินเชื่อ (จัดใหม่ {{ limit }}%)</td>
                     <td class="text-right">
                       {{ new Intl.NumberFormat().format(showLimitPrice) }}
                     </td>
@@ -693,7 +693,7 @@ const allCostOldFn = computed(() => {
     calLoan.value +
     Number(newRegisGov.value);
 
-  return Math.max(totalCost, 5000);
+  return am_loan.value ? Math.max(totalCost, 5000) : totalCost;
 });
 
 const handleCarTypeChange = () => {
