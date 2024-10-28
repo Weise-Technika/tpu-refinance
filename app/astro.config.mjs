@@ -13,8 +13,7 @@ export default defineConfig({
       },
     },
   },
-  base: '/app/',
-
+  //base: '/app/',
   output: 'server',
   adapter: cloudflare({
     certificate: 'cert/certificate.pem',
