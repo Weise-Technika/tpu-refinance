@@ -13,6 +13,7 @@ export default defineConfig({
       },
     },
   },
+  base: '/app/',
 
   output: 'server',
   adapter: cloudflare({
