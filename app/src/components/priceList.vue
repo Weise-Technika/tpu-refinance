@@ -77,7 +77,8 @@
 
               <div class="row mt-3">
                 <div class="col-12">
-                  <div class="row mt-1 mb-3 hidden" id="govFee">
+
+                  <!-- <div class="row mt-1 mb-3 hidden" id="govFee">
                     <div class="col-12">
                       <p class="mb-2">ประเภทรถยนต์เพื่อคำนวนค่า พ.ร.บ.</p>
                       <select
@@ -92,7 +93,7 @@
                         <option value="1183">ต่อ พ.ร.บ. รถตู้ / SUV</option>
                       </select>
                     </div>
-                  </div>
+                  </div> -->
 
                   <div class="hidden" id="loanStatus">
                     <p class="mb-2">สถานะไฟแนนซ์</p>
@@ -123,6 +124,7 @@
                       >
                     </div>
                   </div>
+
                 </div>
               </div>
 
@@ -177,8 +179,13 @@
                     </tr>
                     <tr>
                       <td>ค่า พ.ร.บ.</td>
-                      <td class="text-right">
-                        {{ Intl.NumberFormat().format(carType) }}
+                      <td>
+                        <select class="form-select tiny-select" v-model="newRegisGov">
+                          <option value="0">0</option>
+                          <option value="646">646</option>
+                          <option value="968">968</option>
+                          <option value="1183">1,183</option>
+                        </select>
                       </td>
                     </tr>
                     <tr>
@@ -212,7 +219,7 @@
                       <td>ค่าธรรมเนียมปิดบัญชี 3%</td>
                       <td class="text-right">
                         {{
-                          Intl.NumberFormat().format(Number(calLoan.toFixed(2)))
+                          Intl.NumberFormat().format(Number(calLoan.toFixed(0)))
                         }}
                       </td>
                     </tr>
@@ -237,7 +244,7 @@
                 <table class="cost">
                   <tbody>
                     <tr>
-                      <td>ยอดสินชื่อรถยนต์ (จัดใหม่ {{ limit }}%)</td>
+                      <td>ยอดสินเชื่อ (จัดใหม่ {{ limit }}%)</td>
                       <td class="text-right" width="100px">
                         {{ new Intl.NumberFormat().format(showLimitPrice) }}
                       </td>
@@ -280,8 +287,13 @@
                     </tr>
                     <tr>
                       <td>ค่า พ.ร.บ.</td>
-                      <td class="text-right">
-                        {{ Intl.NumberFormat().format(newCarType) }}
+                      <td>
+                        <select class="form-select tiny-select" v-model="regisGov">
+                          <option value="0">0</option>
+                          <option value="646">646</option>
+                          <option value="968">968</option>
+                          <option value="1183">1,183</option>
+                        </select>
                       </td>
                     </tr>
                     <tr>
@@ -362,7 +374,7 @@
                 <h1 class="text-center mb-0">
                   {{
                     Intl.NumberFormat().format(
-                      Number(totalRefinance.toFixed(2))
+                      Number(totalRefinance.toFixed(0))
                     )
                   }}
                   บาท
@@ -397,7 +409,7 @@
                       <td class="text-right">
                         {{
                           Intl.NumberFormat().format(
-                            Number(payMonh36.toFixed(2))
+                            Number(payMonh36.toFixed(0))
                           )
                         }}
                         บาท
@@ -415,7 +427,7 @@
                       <td class="text-right">
                         {{
                           Intl.NumberFormat().format(
-                            Number(payMonth48.toFixed(2))
+                            Number(payMonth48.toFixed(0))
                           )
                         }}
                         บาท
@@ -433,7 +445,7 @@
                       <td class="text-right">
                         {{
                           Intl.NumberFormat().format(
-                            Number(payMonth60.toFixed(2))
+                            Number(payMonth60.toFixed(0))
                           )
                         }}
                         บาท
@@ -451,7 +463,7 @@
                       <td class="text-right">
                         {{
                           Intl.NumberFormat().format(
-                            Number(payMonth72.toFixed(2))
+                            Number(payMonth72.toFixed(0))
                           )
                         }}
                         บาท
@@ -469,7 +481,7 @@
                       <td class="text-right">
                         {{
                           Intl.NumberFormat().format(
-                            Number(payMonth84.toFixed(2))
+                            Number(payMonth84.toFixed(0))
                           )
                         }}
                         บาท
@@ -504,6 +516,10 @@
   background-color: #e7e6e6;
   border-radius: 10px;
   padding: 10px 15px 15px 15px;
+}
+.tiny-select {
+  padding: 0px 30px 0px 0px;
+  text-align: right;
 }
 .loan-btn {
   float: left;
@@ -609,8 +625,9 @@ const calLoan = computed(() => {
       Number(carType.value) +
       Number(checkFee.value) +
       Number(otherFee.value) +
-      Number(advanceOldAccount.value)) *
-    0.03
+      Number(advanceOldAccount.value) +
+      Number(newRegisGov.value)
+    ) * 0.03
   );
 });
 const advanceOldAccount = ref(1000);
@@ -629,6 +646,9 @@ const loanRate48 = ref(5.5);
 const loanRate60 = ref(5.5);
 const loanRate72 = ref(5.5);
 const loanRate84 = ref(5.5);
+
+const regisGov = ref(0);
+const newRegisGov = ref(0);
 
 let payMonh36 = computed(
   () =>
@@ -663,16 +683,17 @@ let payMonth84 = computed(
 
 //costFn
 const allCostOldFn = computed(() => {
-  return (
-    Number(is_loan.value) +
+  const totalCost = 
     Number(oldTransferFn.value) +
     Number(tax.value) +
     Number(carType.value) +
     Number(checkFee.value) +
     Number(otherFee.value) +
     Number(advanceOldAccount.value) +
-    calLoan.value
-  );
+    calLoan.value +
+    Number(newRegisGov.value);
+
+  return Math.max(totalCost, 5000);
 });
 
 const handleCarTypeChange = () => {
@@ -702,7 +723,8 @@ const newTotalRef = computed(() => {
     Number(newCarType.value) +
     Number(insureCar.value) +
     Number(insureLife.value) +
-    Number(newOtherFee.value)
+    Number(newOtherFee.value) +
+    Number(regisGov.value)
   );
 });
 
@@ -816,11 +838,12 @@ const getPrice = async (event) => {
     const totalPrice = Number(response.data);
     dataPrice.value = totalPrice.toString();
     document.getElementById("price").classList.remove("hidden");
+    document.getElementById("loanStatus").classList.remove("hidden");
     showLimitPrice.value = totalPrice;
 
     transfer.value = totalPrice / 100 + 3000;
     document.getElementById("govFee").classList.remove("hidden");
-    document.getElementById("loanStatus").classList.remove("hidden");
+
   } catch (error) {
     console.log(error);
   }
