@@ -1,0 +1,60 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout
+  title="ติดตั้งแอปคำนวณการรีไฟแนนซ์รถยนต์"
+  description="ติดตั้งระบบคำนวณรีไฟแนนซ์รถยนต์ง่ายๆ ใน 3 ขึ้นตอน"
+>
+  <main>
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<div class="card">
+					<h1>ติดตั้งแอป</h1>
+					<p>คลิกที่ปุ่มด้านล่างเพื่อเพิ่มแอปคำนวณการรีไฟแนนซ์รถยนต์ลงในหน้าจอหลักของคุณ</p>
+					<button id="installBtn" class="btn btn-warning">ติดตั้งแอป</button>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+  </main>
+</Layout>
+
+<style>
+	.card {
+		margin-top: 20px;
+		padding: 20px;
+		background-color: #fff;
+	}
+</style>
+
+<script>
+  type BeforeInstallPromptEvent = Event & {
+    prompt: () => void;
+    userChoice: Promise<{ outcome: string }>;
+  };
+  let deferredPrompt: BeforeInstallPromptEvent | null = null;
+  const installBtn = document.getElementById("installBtn");
+  window.addEventListener("beforeinstallprompt", (e) => {
+    e.preventDefault();
+    deferredPrompt = e as BeforeInstallPromptEvent;
+    installBtn.style.display = "block";
+
+    installBtn.addEventListener("click", () => {
+      installBtn.style.display = "none";
+      deferredPrompt.prompt();
+      (deferredPrompt as any).userChoice.then(
+        (choiceResult: { outcome: string }) => {
+          if (choiceResult.outcome === "accepted") {
+            console.log("User accepted the install prompt");
+          } else {
+            console.log("User dismissed the install prompt");
+          }
+          deferredPrompt = null;
+        }
+      );
+    });
+  });
+</script>

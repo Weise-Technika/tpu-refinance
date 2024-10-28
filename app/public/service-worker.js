@@ -5,8 +5,6 @@ const urlsToCache = [
   '/manifest.json',
   '/icons/icon-192x192.png',
   '/icons/icon-512x512.png',
-  '/styles.css',
-  '/app.js'
 ];
 
 // ติดตั้ง Service Worker และแคชไฟล์ที่กำหนด

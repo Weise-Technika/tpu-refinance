@@ -4,7 +4,7 @@
     "description": "The Toyota Paragon Used Cars app allows users to browse certified pre-owned Toyotas, view vehicle details, schedule test drives, and explore financing options easily.",
     "start_url": "/",
     "display": "standalone",
-    "background_color": "#ffffff",
+    "background_color": "#d60707",
     "theme_color": "#000000",
     "icons": [
       {
