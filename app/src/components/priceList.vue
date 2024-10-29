@@ -157,13 +157,13 @@
                 <table class="cost">
                   <tbody>
                     <tr>
-                      <td>ยอดปิดบัญชี</td>
+                      <td>1.1 ยอดปิดบัญชี</td>
                       <td class="text-right" width="100px">
                         {{ Intl.NumberFormat().format(is_loan) }}
                       </td>
                     </tr>
                     <tr>
-                      <td>ค่าโอนตามสัญญาไฟแนนซ์</td>
+                      <td>1.2 ค่าโอนตามสัญญา</td>
                       <td>
                         <input
                           class="form-control tiny-input"
@@ -172,13 +172,13 @@
                       </td>
                     </tr>
                     <tr>
-                      <td>ค่าภาษี</td>
+                      <td>1.3 ภาษี</td>
                       <td>
                         <input class="form-control tiny-input" v-model="tax" />
                       </td>
                     </tr>
                     <tr>
-                      <td>ค่า พ.ร.บ.</td>
+                      <td>1.4 พ.ร.บ.</td>
                       <td>
                         <select class="form-select tiny-select" v-model="newRegisGov">
                           <option value="0">0</option>
@@ -189,7 +189,7 @@
                       </td>
                     </tr>
                     <tr>
-                      <td>ค่าตรวจรถ</td>
+                      <td>1.5 ค่าตรวจรถ</td>
                       <td>
                         <input
                           class="form-control tiny-input"
@@ -197,17 +197,9 @@
                         />
                       </td>
                     </tr>
+
                     <tr>
-                      <td>อื่นๆ</td>
-                      <td>
-                        <input
-                          class="form-control tiny-input"
-                          v-model="otherFee"
-                        />
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>ค่าบริการปิดบัญชี</td>
+                      <td>1.6 ค่าบริการปิดบัญชี</td>
                       <td>
                         <input
                           class="form-control tiny-input"
@@ -215,18 +207,44 @@
                         />
                       </td>
                     </tr>
+
+                    <tr>
+                      <td>1.7 ค่าเช็คต้น</td>
+                      <td>
+                        <input
+                          class="form-control tiny-input"
+                          v-model="otherFee"
+                        />
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>1.8 ค่าใช้จ่ายอื่นๆ</td>
+                      <td>
+                        <input
+                          class="form-control tiny-input"
+                          v-model="otherFee"
+                        />
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>รวมค่าใช้จ่ายปิดบัญชี</td>
+                      <td class="text-right">
+                        {{ Intl.NumberFormat().format(Number(calLoanAll.toFixed(0))) }}
+                      </td>
+                    </tr>
+                    
                     <tr class="">
                       <td>ค่าธรรมเนียมปิดบัญชี 3%</td>
                       <td class="text-right">
-                        {{
-                          Intl.NumberFormat().format(Number(calLoan.toFixed(0)))
-                        }}
+                        {{ Intl.NumberFormat().format(Number(calLoan.toFixed(0))) }}
                       </td>
                     </tr>
                     <tr class="total-line">
-                      <td>รวมค่าใช้จ่ายปิดบัญชีเดิม</td>
+                      <td>1. สรุปค่าใช้จ่ายปิดบัญชีเดิม</td>
                       <td class="text-right">
-                        {{ Intl.NumberFormat().format(Number(allCostOldFn)) }}
+                        {{ Intl.NumberFormat().format(Number(allCostOldFn.toFixed(0))) }}
                       </td>
                     </tr>
                   </tbody>
@@ -250,7 +268,7 @@
                       </td>
                     </tr>
                     <tr>
-                      <td>เงินมัดจำ</td>
+                      <td>2.1 ค่าทำสัญญาไฟแนนซ์</td>
                       <td>
                         <input
                           class="form-control tiny-input"
@@ -258,17 +276,9 @@
                         />
                       </td>
                     </tr>
+
                     <tr>
-                      <td>ค่าธรรมเนียมดำเนินการจัดไฟแนนซ์</td>
-                      <td>
-                        <input
-                          class="form-control tiny-input"
-                          v-model="processFee"
-                        />
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>ค่าโอนอากรในส่วนจัดใหม่</td>
+                      <td>2.2 ค่าโอนอากร</td>
                       <td>
                         <input
                           class="form-control tiny-input"
@@ -276,8 +286,9 @@
                         />
                       </td>
                     </tr>
+
                     <tr>
-                      <td>ค่าภาษี</td>
+                      <td>2.3 ภาษี</td>
                       <td>
                         <input
                           class="form-control tiny-input"
@@ -286,7 +297,7 @@
                       </td>
                     </tr>
                     <tr>
-                      <td>ค่า พ.ร.บ.</td>
+                      <td>2.4 พ.ร.บ.</td>
                       <td>
                         <select class="form-select tiny-select" v-model="regisGov">
                           <option value="0">0</option>
@@ -296,8 +307,10 @@
                         </select>
                       </td>
                     </tr>
+
+
                     <tr>
-                      <td>ค่าประกันตัวรถ</td>
+                      <td>2.5 ค่าประกัน</td>
                       <td>
                         <input
                           class="form-control tiny-input"
@@ -305,8 +318,9 @@
                         />
                       </td>
                     </tr>
+
                     <tr>
-                      <td>ค่าประกันชีวิต</td>
+                      <td>2.6 ค่าเช็คต้น</td>
                       <td>
                         <input
                           class="form-control tiny-input"
@@ -314,8 +328,10 @@
                         />
                       </td>
                     </tr>
+
+
                     <tr>
-                      <td>อื่นๆ</td>
+                      <td>2.7 ค่าใช้จ่ายอื่นๆ</td>
                       <td>
                         <input
                           class="form-control tiny-input"
@@ -323,8 +339,20 @@
                         />
                       </td>
                     </tr>
+
+
+                    <tr>
+                      <td>2.8 ค่าธรรมเนียมในการดำเนิน</td>
+                      <td>
+                        <input
+                          class="form-control tiny-input"
+                          v-model="processFee"
+                        />
+                      </td>
+                    </tr>
+                    
                     <tr class="total-line">
-                      <td>รวมค่าใช้จ่ายการรีไฟแนนซ์</td>
+                      <td>2. ค่าใช้จ่ายในการจัดไฟแนนซ์</td>
                       <td class="text-right">
                         {{ Intl.NumberFormat().format(newTotalRef) }}
                       </td>
@@ -344,25 +372,25 @@
               <table class="summary">
                 <tbody>
                   <tr>
-                    <td>ยอดสินเชื่อ (จัดใหม่ {{ limit }}%)</td>
+                    <td>1. ยอดสินเชื่อ (จัดใหม่ {{ limit }}%)</td>
                     <td class="text-right">
                       {{ new Intl.NumberFormat().format(showLimitPrice) }}
                     </td>
                   </tr>
                   <tr>
-                    <td>ค่าใช้จ่ายจัดไฟแนนซ์</td>
-                    <td class="text-right" width="150px">
-                      - {{ Intl.NumberFormat().format(newTotalRef) }}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>ค่าใช้จ่ายปิดบัญชีเดิม</td>
+                    <td>2. ค่าใช้จ่ายปิดบัญชีเดิม (ส่วนที่ 1)</td>
                     <td class="text-right">
                       - {{ Intl.NumberFormat().format(allCostOldFn) }}
                     </td>
                   </tr>
                   <tr>
-                    <td>คืนเงินมัดจำค่าธรรมเนียม</td>
+                    <td>3. ค่าใช้จ่ายจัดไฟแนนซ์ (ส่วนที่ 2)</td>
+                    <td class="text-right" width="150px">
+                      - {{ Intl.NumberFormat().format(newTotalRef) }}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>4. เงินมัดจำทำสัญญาคืนลูกค้า</td>
                     <td class="text-right" width="150px">
                       {{ Intl.NumberFormat().format(bookingFee) }}
                     </td>
@@ -417,7 +445,7 @@
                     </tr>
                     <tr>
                       <td class="">ผ่อน 48 งวด</td>
-                      <td width="80px">
+                      <td width="90px">
                         <input
                           class="form-control tiny-input"
                           type="number"
@@ -607,7 +635,7 @@ const am_loan = ref(false);
 //Cal New Loan
 //ยอดสินเชื่อใหม่ตาม %
 const showLimitPrice = ref(0);
-let bookingFee = ref(2000);
+const bookingFee = ref(2000);
 const processFee = ref(10000);
 const checkFee = ref(0);
 const transfer = ref(0);
@@ -617,19 +645,24 @@ const tax = ref(0);
 const carType = ref(0);
 const insureCar = ref(0);
 const insureLife = ref(0);
-const calLoan = computed(() => {
+
+const calLoanAll = computed(() => {
   return (
-    (Number(is_loan.value) +
-      Number(oldTransferFn.value) +
-      Number(tax.value) +
-      Number(carType.value) +
-      Number(checkFee.value) +
-      Number(otherFee.value) +
-      Number(advanceOldAccount.value) +
-      Number(newRegisGov.value)
-    ) * 0.03
+    Number(is_loan.value) +
+    Number(oldTransferFn.value) +
+    Number(tax.value) +
+    Number(carType.value) +
+    Number(checkFee.value) +
+    Number(otherFee.value) +
+    Number(advanceOldAccount.value) +
+    Number(newRegisGov.value)
   );
 });
+
+const calLoan = computed(() => {
+  return Math.max(Number(calLoanAll.value) * 0.03, 5000);
+});
+
 const advanceOldAccount = ref(1000);
 const oldTransferFn = ref(2000);
 const otherFee = ref(0);
@@ -652,48 +685,38 @@ const newRegisGov = ref(0);
 
 let payMonh36 = computed(
   () =>
-    (showLimitPrice.value * (loanRate36.value / 100) * 3 +
-      showLimitPrice.value) /
+    ((showLimitPrice.value * (loanRate36.value / 100) * 3 +
+      showLimitPrice.value) * 1.07) /
     36
 );
 let payMonth48 = computed(
   () =>
-    (showLimitPrice.value * (loanRate48.value / 100) * 4 +
-      showLimitPrice.value) /
+    ((showLimitPrice.value * (loanRate48.value / 100) * 4 +
+      showLimitPrice.value) * 1.07) /
     48
 );
 let payMonth60 = computed(
   () =>
-    (showLimitPrice.value * (loanRate60.value / 100) * 5 +
-      showLimitPrice.value) /
+    ((showLimitPrice.value * (loanRate60.value / 100) * 5 +
+      showLimitPrice.value) * 1.07) /
     60
 );
 let payMonth72 = computed(
   () =>
-    (showLimitPrice.value * (loanRate72.value / 100) * 6 +
-      showLimitPrice.value) /
+    ((showLimitPrice.value * (loanRate72.value / 100) * 6 +
+      showLimitPrice.value) * 1.07) /
     72
 );
 let payMonth84 = computed(
   () =>
-    (showLimitPrice.value * (loanRate84.value / 100) * 7 +
-      showLimitPrice.value) /
+    ((showLimitPrice.value * (loanRate84.value / 100) * 7 +
+      showLimitPrice.value) * 1.07) /
     84
 );
 
 //costFn
 const allCostOldFn = computed(() => {
-  const totalCost = 
-    Number(oldTransferFn.value) +
-    Number(tax.value) +
-    Number(carType.value) +
-    Number(checkFee.value) +
-    Number(otherFee.value) +
-    Number(advanceOldAccount.value) +
-    calLoan.value +
-    Number(newRegisGov.value);
-
-  return am_loan.value ? Math.max(totalCost, 5000) : totalCost;
+  return Number(calLoanAll.value) + Number(calLoan.value);
 });
 
 const handleCarTypeChange = () => {
@@ -751,10 +774,10 @@ const cost = computed(() => {
 
 const totalRefinance = computed(() => {
   const total =
-    showLimitPrice.value -
-    newTotalRef.value -
-    allCostOldFn.value +
-    bookingFee.value;
+  Number(showLimitPrice.value) -
+    Number(newTotalRef.value) -
+    Number(allCostOldFn.value) +
+    Number(bookingFee.value);
   return total <= 0 ? 0 : total;
 });
 
@@ -859,7 +882,7 @@ const haveLoan = () => {
 
   am_loan.value = true;
   document.getElementById("step2").classList.remove("hidden");
-  checkFee.value = 150;
+  checkFee.value = 0;
 
   carType.value = carTypeCost.value;
   newCarType.value = 0;
