@@ -267,12 +267,23 @@
                         {{ new Intl.NumberFormat().format(showLimitPrice) }}
                       </td>
                     </tr>
+
+                    <tr>
+                      <td>เงินมัดจำทำสัญญา</td>
+                      <td>
+                        <input
+                          class="form-control tiny-input"
+                          v-model="bookingFee"
+                        />
+                      </td>
+                    </tr>
+
                     <tr>
                       <td>2.1 ค่าทำสัญญาไฟแนนซ์</td>
                       <td>
                         <input
                           class="form-control tiny-input"
-                          v-model="bookingFee"
+                          v-model="signContractFee"
                         />
                       </td>
                     </tr>
@@ -636,6 +647,7 @@ const am_loan = ref(false);
 //ยอดสินเชื่อใหม่ตาม %
 const showLimitPrice = ref(0);
 const bookingFee = ref(2000);
+const bookingFnFee = ref(2000);
 const processFee = ref(10000);
 const checkFee = ref(0);
 const transfer = ref(0);
@@ -747,7 +759,8 @@ const newTotalRef = computed(() => {
     Number(insureCar.value) +
     Number(insureLife.value) +
     Number(newOtherFee.value) +
-    Number(regisGov.value)
+    Number(regisGov.value) +
+    Number(signContractFee.value)
   );
 });
 
