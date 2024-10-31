@@ -1,3 +1,4 @@
+/*
 // ชื่อแคชและรายการไฟล์ที่ต้องการแคช
 const CACHE_NAME = 'astro-cache-v1';
 const urlsToCache = [
@@ -59,3 +60,4 @@ self.addEventListener('activate', (event) => {
     })
   );
 });
+*/

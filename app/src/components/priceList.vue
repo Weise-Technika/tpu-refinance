@@ -43,6 +43,7 @@
                   </option>
                 </select>
               </div>
+
               <div class="mb-3">
                 <select
                   @change="getPrice($event)"
@@ -77,23 +78,6 @@
 
               <div class="row mt-3">
                 <div class="col-12">
-
-                  <!-- <div class="row mt-1 mb-3 hidden" id="govFee">
-                    <div class="col-12">
-                      <p class="mb-2">ประเภทรถยนต์เพื่อคำนวนค่า พ.ร.บ.</p>
-                      <select
-                        class="form-select mt-1"
-                        id="carType"
-                        @change="handleCarTypeChange"
-                        v-model="carTypeCost"
-                      >
-                        <option value="0">ไม่ต่อ พ.ร.บ.</option>
-                        <option value="646">ต่อ พ.ร.บ. รถยนต์เก๋ง</option>
-                        <option value="968">ต่อ พ.ร.บ. รถยนต์กระบะ</option>
-                        <option value="1183">ต่อ พ.ร.บ. รถตู้ / SUV</option>
-                      </select>
-                    </div>
-                  </div> -->
 
                   <div class="hidden" id="loanStatus">
                     <p class="mb-2">สถานะไฟแนนซ์</p>
@@ -213,7 +197,7 @@
                       <td>
                         <input
                           class="form-control tiny-input"
-                          v-model="otherFee"
+                          v-model="checkLoanFee"
                         />
                       </td>
                     </tr>
@@ -252,6 +236,8 @@
               </div>
             </div>
           </div>
+
+
           <div class="hidden" id="noLoan">
             <div class="mt-4 mb-3">
               <h5 class="title-des color-white">ค่าใช้จ่ายการรีไฟแนนซ์</h5>
@@ -340,7 +326,6 @@
                       </td>
                     </tr>
 
-
                     <tr>
                       <td>2.7 ค่าใช้จ่ายอื่นๆ</td>
                       <td>
@@ -350,7 +335,6 @@
                         />
                       </td>
                     </tr>
-
 
                     <tr>
                       <td>2.8 ค่าธรรมเนียมในการดำเนิน</td>
@@ -378,6 +362,7 @@
             <h3 class="title color-white">สรุปการคำนวณ</h3>
           </div>
 
+
           <div class="card-rf mt-2 mb-5">
             <div class="row mt-3">
               <table class="summary">
@@ -389,19 +374,19 @@
                     </td>
                   </tr>
                   <tr>
-                    <td>2. ค่าใช้จ่ายปิดบัญชีเดิม (ส่วนที่ 1)</td>
+                    <td>2. ค่าปิดบัญชีเดิม (ส่วนที่ 1)</td>
                     <td class="text-right">
-                      - {{ Intl.NumberFormat().format(allCostOldFn) }}
+                        - {{ Intl.NumberFormat().format(Number(allCostOldFn.toFixed(0))) }}
                     </td>
                   </tr>
                   <tr>
-                    <td>3. ค่าใช้จ่ายจัดไฟแนนซ์ (ส่วนที่ 2)</td>
+                    <td>3. ค่าจัดไฟแนนซ์ (ส่วนที่ 2)</td>
                     <td class="text-right" width="150px">
-                      - {{ Intl.NumberFormat().format(newTotalRef) }}
+                        - {{ Intl.NumberFormat().format(Number(newTotalRef.toFixed(0))) }}
                     </td>
                   </tr>
                   <tr>
-                    <td>4. เงินมัดจำทำสัญญาคืนลูกค้า</td>
+                    <td>4. คืนเงินมัดจำทำสัญญา</td>
                     <td class="text-right" width="150px">
                       {{ Intl.NumberFormat().format(bookingFee) }}
                     </td>
@@ -424,9 +409,7 @@
             <div class="row mt-3">
               <div class="col-12 calNewFn">
                 <p class="mb-2">
-                  อัตราดอกเบี้ยรีไฟแนนซ์ (<a href="#" target="_blank"
-                    >ข้อมูลอัตราดอกเบี้ย</a
-                  >)
+                  อัตราดอกเบี้ยรีไฟแนนซ์
                 </p>
 
                 <table class="table table-striped">
@@ -528,11 +511,61 @@
                     </tr>
                   </tbody>
                 </table>
-
                 <p>ยอดผ่อนรวมภาษีมูลค่าเพิ่ม 7% แล้ว</p>
               </div>
             </div>
           </div>
+
+          <div class="mt-4 mb-3">
+            <div class="heading">4</div>
+            <h3 class="title color-white">สร้างใบเสนอราคา</h3>
+          </div>
+
+            <div class="card-rf mt-3 mb-4 pl-end">
+              <div class="row mt-2">
+                  <div class="col-12">
+                    <p>ข้อมูลลูกค้าที่คุณจะเสนอราคา</p>
+                    <input class="form-control" type="text" placeholder="ชื่อ-นามสกุล" v-model="customerName" />
+                    <input class="form-control mt-3" type="number" placeholder="เบอร์โทรศัพท์" :maxlength="10" v-model="customerPhone"/>
+                  </div>
+
+                  <div class="col-12 mt-4">
+                  <p>กำหนดรายละเอียดใบเสนอราคา</p>
+                    <div>
+                      <input
+                        type="radio"
+                        class="btn-check"
+                        name="interestRate"
+                        id="showInterest"
+                        autocomplete="off"
+                        v-model="showInterestRate"
+                        :value="true"
+                      />
+                      <label class="btn btn-outline-secondary me-2" for="showInterest">โชว์ดอกเบี้ย</label>
+                      <input
+                        type="radio"
+                        class="btn-check"
+                        name="interestRate"
+                        id="hideInterest"
+                        autocomplete="off"
+                        v-model="showInterestRate"
+                        :value="false"
+                      />
+                      <label class="btn btn-outline-secondary" for="hideInterest">ไม่โชว์ดอกเบี้ย</label>
+                    </div>
+
+                    <p class="mt-4">
+                      ระบบจะบันทึกข้อมูลใบเสนอ และสร้างใบเสนอราคาให้คุณ คุณสามารถเข้ามาแก้ใขได้ตลอดเวลา หรือใส่ข้อมูลเพิ่มเติมได้ตลอดเวลา
+                    </p>
+                    <div class="content-center">
+                      <button class="btn btn-warning mt-2 mb-3" @click="logData">บันทึก และสร้างใบเสนอราคา</button>
+                    </div>
+                    
+                  </div>
+
+              </div>
+            </div>
+
         </div>
       </div>
     </div>
@@ -579,6 +612,9 @@
   padding: 5px 30px 20px;
   border-radius: 10px;
 }
+.pl-end {
+  padding: 15px 20px;
+}
 .color-white {
   color: white;
 }
@@ -623,9 +659,116 @@ small {
   padding: 15px 10px 15px 10px;
   margin-top: 10px;
 }
+.content-center {
+  text-align: center;
+}
 </style>
 
+
+
 <script setup lang="ts">
+
+import { createApp } from 'vue';
+import VueSweetalert2 from 'vue-sweetalert2';
+import 'sweetalert2/dist/sweetalert2.min.css';
+
+const options = {
+  confirmButtonColor: '#41b882',
+  cancelButtonColor: '#ff7674',
+};
+
+const app = createApp({});
+app.use(VueSweetalert2, options);
+
+
+import Swal from 'sweetalert2';
+
+const getDataToJson = () => {
+  const data = {
+    "zone_0": {
+      dataBrand: dataBrand.value,
+      dataTitle: dataTitle.value,
+      dataYear: dataGen.value,
+      dataGen: nameGen.value,
+      datePrice: showLimitPrice.value,
+      priceLimit: limit.value,
+      is_loan: is_loan.value,
+      am_loan: am_loan.value,
+    },
+    "zone_1": {
+      is_loan_two: is_loan.value,
+      oldTransferFn: oldTransferFn.value,
+      tax: tax.value,
+      regisGov: newRegisGov.value,
+      checkFee: checkFee.value,
+      advanceOldAccount: advanceOldAccount.value,
+      checkLoanFee: checkLoanFee.value,
+      otherFee: otherFee.value,
+      calLoanAll: calLoanAll.value,
+      calLoan: calLoan.value,
+      allCostOldFn: allCostOldFn.value,
+    },
+    "zone_2": {
+      mainLoanPrice: showLimitPrice.value,
+      bookingFee: bookingFee.value,
+      signContractFee: signContractFee.value,
+      transfer: transfer.value,
+      newTax: newTax.value,
+      regisGov: regisGov.value,
+      inSure: insureCar.value,
+      checkLoanFee: insureLife.value,
+      otherFee: newOtherFee.value,
+      processFee: processFee.value,
+      newTotalRef: newTotalRef.value,
+    },
+    "zone_3": {
+      showLimitPrice: showLimitPrice.value,
+      allCostOldFn: allCostOldFn.value,
+      newTotalRef: newTotalRef.value,
+      bookingFee: bookingFee.value,
+    },
+    "installment": {
+      loanRate36: loanRate36.value,
+      loanRate48: loanRate48.value,
+      loanRate60: loanRate60.value,
+      loanRate72: loanRate72.value,
+      loanRate84: loanRate84.value,
+      payMonth36: payMonh36.value,
+      payMonth48: payMonth48.value,
+      payMonth60: payMonth60.value,
+      payMonth72: payMonth72.value,
+      payMonth84: payMonth84.value,
+      totalRefinance: totalRefinance.value,
+    },
+    "customer": {
+      name: customerName.value,
+      phone: customerPhone.value,
+      loanRateShow: showInterestRate.value
+    }
+  };
+  return JSON.stringify(data, null, 2);
+};
+
+const logData = () => {
+  const jsonData = getDataToJson();
+  Swal.fire({
+    title: 'ข้อมูลใบเสนอราคา',
+    html: `<pre>${jsonData}</pre>`,
+    width: 600,
+    padding: '3em',
+    background: '#fff',
+    backdrop: `
+      rgba(0,0,123,0.4)
+      url("/images/nyan-cat.gif")
+      left top
+      no-repeat
+    `
+  });
+};
+
+// Removed duplicate declaration of logData
+
+
 import { ref, onMounted, computed } from "vue";
 import axios from "axios";
 
@@ -638,10 +781,14 @@ const dataBrand = ref("");
 const dataTitle = ref("");
 const dataGen = ref("");
 const dataPrice = ref("");
+const nameGen = ref("");
 const limit = ref(100);
 
 const is_loan = ref(0);
 const am_loan = ref(false);
+
+const customerName = ref("");
+const customerPhone = ref("");
 
 //Cal New Loan
 //ยอดสินเชื่อใหม่ตาม %
@@ -658,6 +805,8 @@ const carType = ref(0);
 const insureCar = ref(0);
 const insureLife = ref(0);
 
+const checkLoanFee = ref(0);
+
 const calLoanAll = computed(() => {
   return (
     Number(is_loan.value) +
@@ -667,7 +816,8 @@ const calLoanAll = computed(() => {
     Number(checkFee.value) +
     Number(otherFee.value) +
     Number(advanceOldAccount.value) +
-    Number(newRegisGov.value)
+    Number(newRegisGov.value) +
+    Number(checkLoanFee.value)
   );
 });
 
@@ -691,6 +841,8 @@ const loanRate48 = ref(5.5);
 const loanRate60 = ref(5.5);
 const loanRate72 = ref(5.5);
 const loanRate84 = ref(5.5);
+
+const showInterestRate = ref();
 
 const regisGov = ref(0);
 const newRegisGov = ref(0);
@@ -876,6 +1028,9 @@ const getPrice = async (event) => {
     document.getElementById("price").classList.remove("hidden");
     document.getElementById("loanStatus").classList.remove("hidden");
     showLimitPrice.value = totalPrice;
+
+    const selectedOption = event.target.options[event.target.selectedIndex].text;
+    nameGen.value = selectedOption;
 
     transfer.value = totalPrice / 100 + 3000;
     document.getElementById("govFee").classList.remove("hidden");
