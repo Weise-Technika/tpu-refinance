@@ -140,12 +140,14 @@
               <div class="row mt-3">
                 <table class="cost">
                   <tbody>
+
                     <tr>
                       <td>1.1 ยอดปิดบัญชี</td>
                       <td class="text-right" width="100px">
                         {{ Intl.NumberFormat().format(is_loan) }}
                       </td>
                     </tr>
+
                     <tr>
                       <td>1.2 ค่าโอนตามสัญญา</td>
                       <td>
@@ -155,12 +157,14 @@
                         />
                       </td>
                     </tr>
+
                     <tr>
                       <td>1.3 ภาษี</td>
                       <td>
                         <input class="form-control tiny-input" v-model="tax" />
                       </td>
                     </tr>
+
                     <tr>
                       <td>1.4 พ.ร.บ.</td>
                       <td>
@@ -172,6 +176,7 @@
                         </select>
                       </td>
                     </tr>
+
                     <tr>
                       <td>1.5 ค่าตรวจรถ</td>
                       <td>
@@ -225,12 +230,14 @@
                         {{ Intl.NumberFormat().format(Number(calLoan.toFixed(0))) }}
                       </td>
                     </tr>
+
                     <tr class="total-line">
                       <td>1. สรุปค่าใช้จ่ายปิดบัญชีเดิม</td>
                       <td class="text-right">
                         {{ Intl.NumberFormat().format(Number(allCostOldFn.toFixed(0))) }}
                       </td>
                     </tr>
+
                   </tbody>
                 </table>
               </div>
@@ -239,6 +246,7 @@
 
 
           <div class="hidden" id="noLoan">
+
             <div class="mt-4 mb-3">
               <h5 class="title-des color-white">ค่าใช้จ่ายการรีไฟแนนซ์</h5>
             </div>
@@ -357,14 +365,15 @@
               </div>
             </div>
           </div>
+
           <div class="mt-2 mb-3">
             <div class="heading">3</div>
             <h3 class="title color-white">สรุปการคำนวณ</h3>
           </div>
 
-
           <div class="card-rf mt-2 mb-5">
             <div class="row mt-3">
+
               <table class="summary">
                 <tbody>
                   <tr>
@@ -393,6 +402,7 @@
                   </tr>
                 </tbody>
               </table>
+
               <div class="tatalCashBack mt-2">
                 <p class="mb-3 mt-0">เงินคงเหลือทั้งสื้น</p>
                 <h1 class="text-center mb-0">
@@ -573,95 +583,95 @@
 </template>
 
 <style>
-@media (min-width: 768px) {
-  .container {
-    width: 980px;
+  @media (min-width: 768px) {
+    .container {
+      width: 980px;
+    }
   }
-}
-.total-line {
-  border-top: 1pt solid #c8c8c3;
-}
-.calNewFn {
-  padding: 0px;
-}
-.tatalCashBack {
-  background-color: #e7e6e6;
-  border-radius: 10px;
-  padding: 10px 15px 15px 15px;
-}
-.tiny-select {
-  padding: 0px 30px 0px 0px;
-  text-align: right;
-}
-.loan-btn {
-  float: left;
-  margin-right: 10px;
-}
-.text-right {
-  text-align: right;
-  padding-right: 13px;
-}
-.cost tr {
-  height: 35px;
-}
-.hidden {
-  display: none;
-}
-.card-rf {
-  background-color: hsl(0, 0%, 100%);
-  padding: 5px 30px 20px;
-  border-radius: 10px;
-}
-.pl-end {
-  padding: 15px 20px;
-}
-.color-white {
-  color: white;
-}
-.heading {
-  background-color: #ffffff;
-  color: #d60707;
-  padding: 10px;
-  border-radius: 50%;
-  text-align: center;
-  width: 35px;
-  height: 35px;
-  line-height: 0.9rem;
-  font-size: 1.35rem;
-  font-weight: 700;
-  font-family: "Kanit", sans-serif;
-  float: left;
-  margin-right: 10px;
-}
-.title {
-  font-size: 1.8rem;
-  font-weight: 700;
-}
-small {
-  font-size: 0.7rem;
-  color: #8d8d8d;
-}
-.tiny-space {
-  margin-bottom: 0rem;
-  margin-top: 10px;
-  line-height: 0.8rem;
-}
-.tiny-input {
-  height: 25px;
-  text-align: right;
-}
-.title-des {
-  padding-left: 45px;
-}
-.total-hl {
-  background-color: #e7e6e6;
-  border-radius: 10px;
-  padding: 15px 10px 15px 10px;
-  margin-top: 10px;
-}
-.content-center {
-  text-align: center;
-}
+  .total-line {
+    border-top: 1pt solid #c8c8c3;
+  }
+  .calNewFn {
+    padding: 0px;
+  }
+  .tatalCashBack {
+    background-color: #e7e6e6;
+    border-radius: 10px;
+    padding: 10px 15px 15px 15px;
+  }
+  .tiny-select {
+    padding: 0px 30px 0px 0px;
+    text-align: right;
+  }
+  .loan-btn {
+    float: left;
+    margin-right: 10px;
+  }
+  .text-right {
+    text-align: right;
+    padding-right: 13px;
+  }
+  .cost tr {
+    height: 35px;
+  }
+  .hidden {
+    display: none;
+  }
+  .card-rf {
+    background-color: hsl(0, 0%, 100%);
+    padding: 5px 30px 20px;
+    border-radius: 10px;
+  }
+  .pl-end {
+    padding: 15px 20px;
+  }
+  .color-white {
+    color: white;
+  }
+  .heading {
+    background-color: #ffffff;
+    color: #d60707;
+    padding: 10px;
+    border-radius: 50%;
+    text-align: center;
+    width: 35px;
+    height: 35px;
+    line-height: 0.9rem;
+    font-size: 1.35rem;
+    font-weight: 700;
+    font-family: "Kanit", sans-serif;
+    float: left;
+    margin-right: 10px;
+  }
+  .title {
+    font-size: 1.8rem;
+    font-weight: 700;
+  }
+  small {
+    font-size: 0.7rem;
+    color: #8d8d8d;
+  }
+  .tiny-space {
+    margin-bottom: 0rem;
+    margin-top: 10px;
+    line-height: 0.8rem;
+  }
+  .tiny-input {
+    height: 25px;
+    text-align: right;
+  }
+  .title-des {
+    padding-left: 45px;
+  }
+  .total-hl {
+    background-color: #e7e6e6;
+    border-radius: 10px;
+    padding: 15px 10px 15px 10px;
+    margin-top: 10px;
+  }
+  .content-center {
+    text-align: center;
+  }
 </style>
 
 
@@ -822,6 +832,9 @@ const calLoanAll = computed(() => {
 });
 
 const calLoan = computed(() => {
+  if (!am_loan.value) {
+    return 0;
+  }
   return Math.max(Number(calLoanAll.value) * 0.03, 5000);
 });
 
@@ -883,22 +896,22 @@ const allCostOldFn = computed(() => {
   return Number(calLoanAll.value) + Number(calLoan.value);
 });
 
-const handleCarTypeChange = () => {
-  if ((document.getElementById("carType") as HTMLSelectElement).value === "0") {
-    carType.value = 0;
-    newCarType.value = 0;
-  }
-  const optionsBase = document.getElementsByName(
-    "options-base"
-  ) as NodeListOf<HTMLInputElement>;
-  optionsBase.forEach((option) => {
-    option.checked = false;
-  });
-  document.getElementById("loan").classList.add("hidden");
-  document.getElementById("haveLoan").classList.add("hidden");
-  document.getElementById("noLoan").classList.add("hidden");
-  document.getElementById("step2").classList.add("hidden");
-};
+// const handleCarTypeChange = () => {
+//   if ((document.getElementById("carType") as HTMLSelectElement).value === "0") {
+//     carType.value = 0;
+//     newCarType.value = 0;
+//   }
+//   const optionsBase = document.getElementsByName(
+//     "options-base"
+//   ) as NodeListOf<HTMLInputElement>;
+//   optionsBase.forEach((option) => {
+//     option.checked = false;
+//   });
+//   document.getElementById("loan").classList.add("hidden");
+//   document.getElementById("haveLoan").classList.add("hidden");
+//   document.getElementById("noLoan").classList.add("hidden");
+//   document.getElementById("step2").classList.add("hidden");
+// };
 
 //costFnTotal
 const newTotalRef = computed(() => {
@@ -1072,14 +1085,13 @@ const noLoan = () => {
   carType.value = 0;
   newCarType.value = carTypeCost.value;
 
-  // Reset allCostOldFn to 0
+  // Reset allCostOldFn related values to 0
   oldTransferFn.value = 0;
-  tax.value = 0;
-
-  carType.value = 0;
-  checkFee.value = 0;
-  otherFee.value = 0;
   advanceOldAccount.value = 0;
+  otherFee.value = 0;
+  newRegisGov.value = 0;
+  checkLoanFee.value = 0;
+
 };
 
 const limitLoan = () => {
@@ -1089,9 +1101,9 @@ const limitLoan = () => {
   showLimitPrice.value = (Number(dataPrice.value) * Number(limit.value)) / 100;
 };
 
-const carTypeList = () => {
-  carType.value = Number(
-    (document.getElementById("carType") as HTMLSelectElement).value
-  );
-};
+// const carTypeList = () => {
+//   carType.value = Number(
+//     (document.getElementById("carType") as HTMLSelectElement).value
+//   );
+// };
 </script>
