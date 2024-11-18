@@ -9,9 +9,7 @@ const prisma = new PrismaClient();
 const app = express();
 
 app.use(express.json());
-app.use(cors({
-    origin: 'https://ref.paragonusedcars.com'
-}));
+app.use(cors());
 
 app.get('/priceCarsBrand/:group', async (req,res) => {
     const { group } = req.params;
@@ -113,12 +111,11 @@ app.post('/importPriceList', async (req,res) => {
 
 });
 
-app.post('/calFinData', async (req,res) => {
+app.post('/calFinData', async (req, res) => {
     const { body } = req;
 
     if (!req.is('application/json')) {
         return res.status(400).json({ error: 'Expected application/json' });
-
     } else {
         const { name, phone, car_id, firstCalData, secondCalData, salesOwner } = body;
         const customerData = {
@@ -131,17 +128,15 @@ app.post('/calFinData', async (req,res) => {
         };
 
         try {
-            await prisma.customer_data.create({
+            const newCustomer = await prisma.customer_data.create({
                 data: customerData
             });
-            return res.status(201).json({ message: 'Imported customer data successfully' });
+            return res.status(201).json({ message: 'Imported customer data successfully', id: newCustomer.id });
         } catch (error) {
             console.error('Error importing customer data:', error);
             return res.status(500).json({ error: 'Failed to import customer data' });
         }
     }
-   
-
 });
 
 app.post('/printPdf', async (req,res) => {

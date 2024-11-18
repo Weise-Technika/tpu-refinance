@@ -541,30 +541,6 @@
                   </div>
 
                   <div class="col-12 mt-2">
-                    <!-- <p>กำหนดรายละเอียดใบเสนอราคา</p>
-                    <div>
-                      <input
-                        type="radio"
-                        class="btn-check"
-                        name="interestRate"
-                        id="showInterest"
-                        autocomplete="off"
-                        v-model="showInterestRate"
-                        :value="true"
-                      />
-                      <label class="btn btn-outline-secondary me-2" for="showInterest">โชว์ดอกเบี้ย</label>
-                      <input
-                        type="radio"
-                        class="btn-check"
-                        name="interestRate"
-                        id="hideInterest"
-                        autocomplete="off"
-                        v-model="showInterestRate"
-                        :value="false"
-                      />
-                      <label class="btn btn-outline-secondary" for="hideInterest">ไม่โชว์ดอกเบี้ย</label>
-                    </div> -->
-
                     <p class="mt-4">
                       ระบบจะบันทึกข้อมูลใบเสนอ และสร้างใบเสนอราคาให้คุณ คุณสามารถเข้ามาแก้ใขได้ตลอดเวลา หรือใส่ข้อมูลเพิ่มเติมได้ตลอดเวลา
                     </p>
@@ -802,8 +778,11 @@ const logData = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         
-
-        axios.post('https://ref.paragonusedcars.com:2083/calFinData', {
+        interface ResponseData {
+          id: string;
+        }
+        
+        axios.post<ResponseData>('https://ref.paragonusedcars.com:2083/calFinData', {
             "name": customerName.value,
             "phone": customerPhone.value,
             "car_id": carLicense.value,
@@ -820,6 +799,8 @@ const logData = () => {
             icon: 'success',
             title: 'บันทึกข้อมูลสำเร็จ',
             text: 'ข้อมูลของคุณได้ถูกบันทึกและสร้างใบเสนอราคาเรียบร้อยแล้ว',
+          }).then(() => {
+            window.location.href = 'https://ref.paragonusedcars.com/download/' + response.data.id;
           });
 
         }).catch((error) => {
@@ -876,7 +857,6 @@ const is_loan = ref(0);
 const am_loan = ref(false);
 const customerName = ref("");
 const customerPhone = ref("");
-//const showInterestRate = ref(null);
 
 //ยอดสินเชื่อใหม่ตาม %
 const showLimitPrice = ref(0);
@@ -971,23 +951,6 @@ let payMonth84 = computed(
 const allCostOldFn = computed(() => {
   return Number(calLoanAll.value) + Number(calLoan.value);
 });
-
-// const handleCarTypeChange = () => {
-//   if ((document.getElementById("carType") as HTMLSelectElement).value === "0") {
-//     carType.value = 0;
-//     newCarType.value = 0;
-//   }
-//   const optionsBase = document.getElementsByName(
-//     "options-base"
-//   ) as NodeListOf<HTMLInputElement>;
-//   optionsBase.forEach((option) => {
-//     option.checked = false;
-//   });
-//   document.getElementById("loan").classList.add("hidden");
-//   document.getElementById("haveLoan").classList.add("hidden");
-//   document.getElementById("noLoan").classList.add("hidden");
-//   document.getElementById("step2").classList.add("hidden");
-// };
 
 //costFnTotal
 const newTotalRef = computed(() => {
@@ -1165,9 +1128,4 @@ const limitLoan = () => {
   showLimitPrice.value = (Number(dataPrice.value) * Number(limit.value)) / 100;
 };
 
-// const carTypeList = () => {
-//   carType.value = Number(
-//     (document.getElementById("carType") as HTMLSelectElement).value
-//   );
-// };
 </script>
