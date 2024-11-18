@@ -371,7 +371,7 @@
             <h3 class="title color-white">สรุปการคำนวณ</h3>
           </div>
 
-          <div class="card-rf mt-2 mb-5">
+          <div class="card-rf mt-2 mb-4">
             <div class="row mt-3">
 
               <table class="summary">
@@ -526,7 +526,7 @@
             </div>
           </div>
 
-          <div class="mt-4 mb-3">
+          <div class="mt-2 mb-3">
             <div class="heading">4</div>
             <h3 class="title color-white">สร้างใบเสนอราคา</h3>
           </div>
@@ -536,11 +536,12 @@
                   <div class="col-12">
                     <p>ข้อมูลลูกค้าที่คุณจะเสนอราคา</p>
                     <input class="form-control" type="text" placeholder="ชื่อ-นามสกุล" v-model="customerName" />
-                    <input class="form-control mt-3" type="number" placeholder="เบอร์โทรศัพท์" :maxlength="10" v-model="customerPhone"/>
+                    <input class="form-control mt-3" type="text" id="telno" placeholder="เบอร์โทรศัพท์" :maxlength="10" v-model="customerPhone"/>
+                    <input class="form-control mt-3" type="text" placeholder="เลขทะเบียนรถยนต์" v-model="carLicense" />
                   </div>
 
-                  <div class="col-12 mt-4">
-                  <p>กำหนดรายละเอียดใบเสนอราคา</p>
+                  <div class="col-12 mt-2">
+                    <!-- <p>กำหนดรายละเอียดใบเสนอราคา</p>
                     <div>
                       <input
                         type="radio"
@@ -562,7 +563,7 @@
                         :value="false"
                       />
                       <label class="btn btn-outline-secondary" for="hideInterest">ไม่โชว์ดอกเบี้ย</label>
-                    </div>
+                    </div> -->
 
                     <p class="mt-4">
                       ระบบจะบันทึกข้อมูลใบเสนอ และสร้างใบเสนอราคาให้คุณ คุณสามารถเข้ามาแก้ใขได้ตลอดเวลา หรือใส่ข้อมูลเพิ่มเติมได้ตลอดเวลา
@@ -682,16 +683,27 @@ import { createApp } from 'vue';
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 
+const validatePhoneNumber = (event) => {
+  const input = event.target;
+  input.value = input.value.replace(/[^0-9]/g, '');
+};
+
+onMounted(() => {
+  const phoneInput = document.getElementById('telno');
+  phoneInput.addEventListener('input', validatePhoneNumber);
+});
+
 const options = {
   confirmButtonColor: '#41b882',
   cancelButtonColor: '#ff7674',
 };
 
 const app = createApp({});
-app.use(VueSweetalert2, options);
+  app.use(VueSweetalert2, options);
 
 
 import Swal from 'sweetalert2';
+
 
 const getDataToJson = () => {
   const data = {
@@ -703,7 +715,7 @@ const getDataToJson = () => {
       datePrice: showLimitPrice.value,
       priceLimit: limit.value,
       is_loan: is_loan.value,
-      am_loan: am_loan.value,
+      am_loan: am_loan.value
     },
     "zone_1": {
       is_loan_two: is_loan.value,
@@ -753,7 +765,7 @@ const getDataToJson = () => {
     "customer": {
       name: customerName.value,
       phone: customerPhone.value,
-      loanRateShow: showInterestRate.value
+      carLicense: carLicense.value
     }
   };
   return JSON.stringify(data, null, 2);
@@ -761,46 +773,111 @@ const getDataToJson = () => {
 
 const logData = () => {
   const jsonData = getDataToJson();
-  Swal.fire({
-    title: 'ข้อมูลใบเสนอราคา',
-    html: `<pre>${jsonData}</pre>`,
-    width: 600,
-    padding: '3em',
-    background: '#fff',
-    backdrop: `
-      rgba(0,0,123,0.4)
-      url("/images/nyan-cat.gif")
-      left top
-      no-repeat
-    `
-  });
+  if (customerName.value === "" || customerPhone.value === "") {
+    Swal.fire({
+      icon: 'error',
+      title: 'กรุณากรอกข้อมูลลูกค้า',
+      text: 'กรุณากรอกชื่อ-นามสกุล และเบอร์โทรศัพท์',
+    });
+    return;
+  } else if(carLicense.value == null || carLicense.value == "") {
+    Swal.fire({
+      icon: 'error',
+      title: 'กรุณากรอกข้อมูลเลขทะเบียนรถยนต์',
+      text: 'กรุณากรอกข้อมูลเลขทะเบียนรถยนต์',
+    });
+    return;
+  } else {
+
+    Swal.fire({
+      title: 'คุณต้องการบันทึก และสร้างใบเสนอราคาใช่หรือไม่',
+      showCancelButton: true,
+      confirmButtonText: 'ดำเนินการ',
+      cancelButtonText: `ยกเลิก`,
+      customClass: {
+        actions: 'my-actions',
+        cancelButton: 'order-1 right-gap',
+        confirmButton: 'order-2',
+      },
+    }).then((result) => {
+      if (result.isConfirmed) {
+        
+
+        axios.post('https://ref.paragonusedcars.com:2083/calFinData', {
+            "name": customerName.value,
+            "phone": customerPhone.value,
+            "car_id": carLicense.value,
+            "firstCalData": getDataToJson(),
+            "secondCalData": {},
+            "salesOwner": "nattanon_kh"
+        }, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then((response) => {
+
+          Swal.fire({
+            icon: 'success',
+            title: 'บันทึกข้อมูลสำเร็จ',
+            text: 'ข้อมูลของคุณได้ถูกบันทึกและสร้างใบเสนอราคาเรียบร้อยแล้ว',
+          });
+
+        }).catch((error) => {
+          if (error.response) {
+
+            Swal.fire({
+              icon: 'error',
+              title: 'เกิดข้อผิดพลาด',
+              text: `Error ${error.response.status}: ${error.response.data.message || 'Internal Server Error'}`,
+            });
+
+          } else if (error.request) {
+
+            Swal.fire({
+              icon: 'error',
+              title: 'เกิดข้อผิดพลาด',
+              text: 'No response received from server.',
+            });
+
+          } else {
+
+            Swal.fire({
+              icon: 'error',
+              title: 'เกิดข้อผิดพลาด',
+              text: error.message,
+            });
+
+          }
+        });
+
+      } else if (result.isDenied) {
+        Swal.fire('Changes are not saved', '', 'info');
+      }
+      return result;
+    });
+      
+  }
 };
 
 // Removed duplicate declaration of logData
-
-
 import { ref, onMounted, computed } from "vue";
 import axios from "axios";
-
 const priceList = ref([]);
 const titleList = ref([]);
 const yearList = ref([]);
 const genList = ref([]);
-
 const dataBrand = ref("");
 const dataTitle = ref("");
 const dataGen = ref("");
 const dataPrice = ref("");
 const nameGen = ref("");
 const limit = ref(100);
-
 const is_loan = ref(0);
 const am_loan = ref(false);
-
 const customerName = ref("");
 const customerPhone = ref("");
+//const showInterestRate = ref(null);
 
-//Cal New Loan
 //ยอดสินเชื่อใหม่ตาม %
 const showLimitPrice = ref(0);
 const bookingFee = ref(2000);
@@ -810,13 +887,12 @@ const checkFee = ref(0);
 const transfer = ref(0);
 const signContractFee = ref(2000);
 const tax = ref(0);
+
 // ตำนวน พ.ร.บ.
 const carType = ref(0);
 const insureCar = ref(0);
 const insureLife = ref(0);
-
 const checkLoanFee = ref(0);
-
 const calLoanAll = computed(() => {
   return (
     Number(is_loan.value) +
@@ -855,7 +931,7 @@ const loanRate60 = ref(5.5);
 const loanRate72 = ref(5.5);
 const loanRate84 = ref(5.5);
 
-const showInterestRate = ref();
+const carLicense = ref();
 
 const regisGov = ref(0);
 const newRegisGov = ref(0);
@@ -1055,43 +1131,31 @@ const getPrice = async (event) => {
 
 const haveLoan = () => {
   document.getElementById("loan").classList.remove("hidden");
-  // document.getElementById('loan-fee').classList.remove('hidden');
-  //document.getElementById('loan-process').classList.remove('hidden');
-  //document.getElementById('loan-transfer').classList.remove('hidden');
   document.getElementById("haveLoan").classList.remove("hidden");
   document.getElementById("noLoan").classList.remove("hidden");
-
   am_loan.value = true;
   document.getElementById("step2").classList.remove("hidden");
   checkFee.value = 0;
-
   carType.value = carTypeCost.value;
   newCarType.value = 0;
 };
 
 const noLoan = () => {
   document.getElementById("loan").classList.add("hidden");
-  //document.getElementById('loan-fee').classList.add('hidden');
-  //document.getElementById('loan-process').classList.add('hidden');
-  //document.getElementById('loan-transfer').classList.add('hidden');
   document.getElementById("haveLoan").classList.add("hidden");
   document.getElementById("noLoan").classList.remove("hidden");
-
   am_loan.value = false;
   document.getElementById("step2").classList.remove("hidden");
   checkFee.value = 0;
   is_loan.value = 0;
-
   carType.value = 0;
   newCarType.value = carTypeCost.value;
-
   // Reset allCostOldFn related values to 0
   oldTransferFn.value = 0;
   advanceOldAccount.value = 0;
   otherFee.value = 0;
   newRegisGov.value = 0;
   checkLoanFee.value = 0;
-
 };
 
 const limitLoan = () => {

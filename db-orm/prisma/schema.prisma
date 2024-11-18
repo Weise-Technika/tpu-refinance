@@ -24,3 +24,15 @@ model finance_price {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
+model customer_data {
+  id            String   @id @default(cuid())
+  name          String
+  phone         String
+  car_id        String
+  firstCalData  Json
+  secondCalData Json
+  salesOwner    String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}

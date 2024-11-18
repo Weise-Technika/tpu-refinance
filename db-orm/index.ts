@@ -4,6 +4,7 @@ import { PrismaClient } from '@prisma/client';
 const cors = require('cors');
 import fs from 'fs';
 import https from 'https';
+import e from 'express';
 const prisma = new PrismaClient();
 const app = express();
 
@@ -109,6 +110,57 @@ app.post('/importPriceList', async (req,res) => {
     }
 
 });
+
+app.post('/calFinData', async (req,res) => {
+    const { body } = req;
+
+    if (!req.is('application/json')) {
+        return res.status(400).json({ error: 'Expected application/json' });
+
+    } else {
+        const { name, phone, car_id, firstCalData, secondCalData, salesOwner } = body;
+        const customerData = {
+            name,
+            phone,
+            car_id,
+            firstCalData,
+            secondCalData,
+            salesOwner
+        };
+
+        try {
+            await prisma.customer_data.create({
+                data: customerData
+            });
+            return res.status(201).json({ message: 'Imported customer data successfully' });
+        } catch (error) {
+            console.error('Error importing customer data:', error);
+            return res.status(500).json({ error: 'Failed to import customer data' });
+        }
+    }
+   
+
+});
+
+app.post('/printPdf', async (req,res) => {
+    const { id } = req.body;
+    const getUuid = await prisma.customer_data.findUnique({
+        where: {
+            id
+        }
+    });
+
+    if (getUuid && getUuid.firstCalData) {
+        const data = typeof getUuid.firstCalData === 'string' ? JSON.parse(getUuid.firstCalData) : null;
+        res.status(200);
+        res.json(data);
+    } else {
+        //res.status(200);
+        res.json({ error: 404, message: 'Data not found'});
+    }
+
+});
+
 
 const sslOptions = {
     key: fs.readFileSync('cert/private-key.pem'),

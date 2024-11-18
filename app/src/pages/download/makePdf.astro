@@ -1,0 +1,13 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import MakePdfComponent from '../../components/makePdf.vue';
+---
+
+<Layout title="สร้างใบเสนอราคา" description="ระบบกำลังสร้างใบเสนอราคา">
+	<main>
+		<MakePdfComponent client:load />
+	</main>
+</Layout>
+
+<style>
+</style>

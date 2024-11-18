@@ -1,0 +1,76 @@
+---
+import Layout from "../../layouts/Layout.astro";
+const { id } = Astro.params;
+---
+
+<Layout
+  title="ติดตั้งแอปคำนวณการรีไฟแนนซ์รถยนต์"
+  description="ติดตั้งระบบคำนวณรีไฟแนนซ์รถยนต์ง่ายๆ ใน 3 ขึ้นตอน"
+>
+  <main>
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<div class="card">
+					<h1>ดาวน์โหลดใบเสนอราคา</h1>
+					<p>คุณสามารถดาวน์โหลดไฟล์ใบเสนอราคาได้ทันที โอยการเลือกจากรูปแบบใยเสนอราคาด้านล่าง</p>
+          <div class="row">
+            <div class="col-6">
+                <a href={`/download/makePdf?id=${id}&rate=false`} class="btn btn-outline-primary dl-btn">ไม่โชว์ดอกเบี้ย</a>
+            </div>
+            <div class="col-6">
+              <a href={`/download/makePdf?id=${id}&rate=true`} class="btn btn-primary dl-btn">โชว์ดอกเบี้ย</a>
+            </div>
+          </div>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+  </main>
+</Layout>
+
+<style>
+  @media (min-width: 768px) {
+    .container {
+      width: 780px;
+    }
+  }
+	.card {
+		margin-top: 20px;
+		padding: 20px;
+		background-color: #fff;
+	}
+  .dl-btn {
+    display: block;
+  }
+</style>
+
+<script>
+  type BeforeInstallPromptEvent = Event & {
+    prompt: () => void;
+    userChoice: Promise<{ outcome: string }>;
+  };
+  let deferredPrompt: BeforeInstallPromptEvent | null = null;
+  const installBtn = document.getElementById("installBtn");
+  window.addEventListener("beforeinstallprompt", (e) => {
+    e.preventDefault();
+    deferredPrompt = e as BeforeInstallPromptEvent;
+    installBtn.style.display = "block";
+
+    installBtn.addEventListener("click", () => {
+      installBtn.style.display = "none";
+      deferredPrompt.prompt();
+      (deferredPrompt as any).userChoice.then(
+        (choiceResult: { outcome: string }) => {
+          if (choiceResult.outcome === "accepted") {
+            console.log("User accepted the install prompt");
+          } else {
+            console.log("User dismissed the install prompt");
+          }
+          deferredPrompt = null;
+        }
+      );
+    });
+  });
+</script>
