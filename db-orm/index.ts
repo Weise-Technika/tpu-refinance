@@ -4,12 +4,14 @@ import { PrismaClient } from '@prisma/client';
 const cors = require('cors');
 import fs from 'fs';
 import https from 'https';
-import e from 'express';
+//import e from 'express';
 const prisma = new PrismaClient();
 const app = express();
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+    origin: 'https://ref.paragonusedcars.com'
+}));
 
 app.get('/priceCarsBrand/:group', async (req,res) => {
     const { group } = req.params;
