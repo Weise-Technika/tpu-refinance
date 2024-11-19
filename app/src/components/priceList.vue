@@ -666,7 +666,9 @@ const validatePhoneNumber = (event) => {
 
 onMounted(() => {
   const phoneInput = document.getElementById('telno');
-  phoneInput.addEventListener('input', validatePhoneNumber);
+  if (phoneInput) {
+    phoneInput.addEventListener('input', validatePhoneNumber);
+  }
 });
 
 const options = {
@@ -782,7 +784,7 @@ const logData = () => {
           id: string;
         }
         
-        axios.post<ResponseData>('https://ref.paragonusedcars.com:2083/calFinData', {
+        axios.post<ResponseData>(`${public_host}:2083/calFinData`, {
             "name": customerName.value,
             "phone": customerPhone.value,
             "car_id": carLicense.value,
@@ -800,7 +802,7 @@ const logData = () => {
             title: 'บันทึกข้อมูลสำเร็จ',
             text: 'ข้อมูลของคุณได้ถูกบันทึกและสร้างใบเสนอราคาเรียบร้อยแล้ว',
           }).then(() => {
-            window.location.href = 'https://ref.paragonusedcars.com/download/' + response.data.id;
+            window.location.href = `${public_host}/download/` + response.data.id;
           });
 
         }).catch((error) => {
@@ -843,10 +845,10 @@ const logData = () => {
 // Removed duplicate declaration of logData
 import { ref, onMounted, computed } from "vue";
 import axios from "axios";
-const priceList = ref([]);
-const titleList = ref([]);
-const yearList = ref([]);
-const genList = ref([]);
+const priceList = ref<any>([]);
+const titleList = ref<any>([]);
+const yearList = ref<any>([]);
+const genList = ref<any>([]);
 const dataBrand = ref("");
 const dataTitle = ref("");
 const dataGen = ref("");
@@ -998,9 +1000,11 @@ const totalRefinance = computed(() => {
   return total <= 0 ? 0 : total;
 });
 
+const public_host = process.env.PUBLIC_HOST;
+
 onMounted(async () => {
   try {
-    const response = await axios.get(`https://ref.paragonusedcars.com:2083/priceCarsBrand/1`);
+    const response = await axios.get(`${public_host}:2083/priceCarsBrand/1`);
     priceList.value = Array.isArray(response.data) ? response.data : [];
     titleList.value = [];
     yearList.value = [];
@@ -1015,13 +1019,16 @@ const getTitle = async (event) => {
   dataBrand.value = event.target.value;
   try {
     const response = await axios.get(
-      `https://ref.paragonusedcars.com:2083/priceCarsBrand/1/${dataBrand.value}`
+      `${public_host}:2083/priceCarsBrand/1/${dataBrand.value}`
     );
     titleList.value = Array.isArray(response.data) ? response.data : [];
     yearList.value = [];
     genList.value = [];
     dataPrice.value = "0";
-    document.getElementById("title").classList.remove("hidden");
+    const titleElement = document.getElementById("title");
+    if (titleElement) {
+      titleElement.classList.remove("hidden");
+    }
 
     showLimitPrice.value = 0;
     (document.getElementById("limit-loan") as HTMLInputElement).value = "100";
@@ -1034,12 +1041,15 @@ const getYear = async (event) => {
   dataTitle.value = event.target.value;
   try {
     const response = await axios.get(
-      `https://ref.paragonusedcars.com:2083/priceCarsBrand/1/${dataBrand.value}/${dataTitle.value}`
+      `${public_host}:2083/priceCarsBrand/1/${dataBrand.value}/${dataTitle.value}`
     );
     yearList.value = Array.isArray(response.data) ? response.data : [];
     genList.value = [];
     dataPrice.value = "0";
-    document.getElementById("year").classList.remove("hidden");
+    const yearElement = document.getElementById("year");
+    if (yearElement) {
+      yearElement.classList.remove("hidden");
+    }
 
     showLimitPrice.value = 0;
     (document.getElementById("limit-loan") as HTMLInputElement).value = "100";
@@ -1055,11 +1065,14 @@ const getGen = async (event) => {
       genList.value = [];
     } else {
       const response = await axios.get(
-        `https://ref.paragonusedcars.com:2083/priceCarsBrand/1/${dataBrand.value}/${dataTitle.value}/${dataGen.value}`
+        `${public_host}:2083/priceCarsBrand/1/${dataBrand.value}/${dataTitle.value}/${dataGen.value}`
       );
       genList.value = Array.isArray(response.data) ? response.data : [];
     }
-    document.getElementById("gen").classList.remove("hidden");
+    const genElement = document.getElementById("gen");
+    if (genElement) {
+      genElement.classList.remove("hidden");
+    }
 
     showLimitPrice.value = 0;
     (document.getElementById("limit-loan") as HTMLInputElement).value = "100";
@@ -1073,19 +1086,29 @@ const getPrice = async (event) => {
   dataPrice.value = event.target.value;
   try {
     const response = await axios.get(
-      `https://ref.paragonusedcars.com:2083/priceCarsBrand/1/${dataBrand.value}/${dataTitle.value}/${dataGen.value}/${dataPrice.value}`
+      `${public_host}:2083/priceCarsBrand/1/${dataBrand.value}/${dataTitle.value}/${dataGen.value}/${dataPrice.value}`
     );
     const totalPrice = Number(response.data);
     dataPrice.value = totalPrice.toString();
-    document.getElementById("price").classList.remove("hidden");
-    document.getElementById("loanStatus").classList.remove("hidden");
+    const priceElement = document.getElementById("price");
+    if (priceElement) {
+      priceElement.classList.remove("hidden");
+    }
+
+    const loanStatusElement = document.getElementById("loanStatus");
+    if (loanStatusElement) {
+      loanStatusElement.classList.remove("hidden");
+    }
     showLimitPrice.value = totalPrice;
 
     const selectedOption = event.target.options[event.target.selectedIndex].text;
     nameGen.value = selectedOption;
 
     transfer.value = totalPrice / 100 + 3000;
-    document.getElementById("govFee").classList.remove("hidden");
+    // const govFeeElement = document.getElementById("govFee");
+    // if (govFeeElement) {
+    //   govFeeElement.classList.remove("hidden");
+    // }
 
   } catch (error) {
     console.log(error);
@@ -1093,22 +1116,38 @@ const getPrice = async (event) => {
 };
 
 const haveLoan = () => {
-  document.getElementById("loan").classList.remove("hidden");
-  document.getElementById("haveLoan").classList.remove("hidden");
-  document.getElementById("noLoan").classList.remove("hidden");
+  const loanElement = document.getElementById("loan");
+  if (loanElement) loanElement.classList.remove("hidden");
+
+  const haveLoanElement = document.getElementById("haveLoan");
+  if (haveLoanElement) haveLoanElement.classList.remove("hidden");
+
+  const noLoanElement = document.getElementById("noLoan");
+  if (noLoanElement) noLoanElement.classList.remove("hidden");
   am_loan.value = true;
-  document.getElementById("step2").classList.remove("hidden");
+  const step2Element = document.getElementById("step2");
+  if (step2Element) {
+    step2Element.classList.remove("hidden");
+  }
   checkFee.value = 0;
   carType.value = carTypeCost.value;
   newCarType.value = 0;
 };
 
 const noLoan = () => {
-  document.getElementById("loan").classList.add("hidden");
-  document.getElementById("haveLoan").classList.add("hidden");
-  document.getElementById("noLoan").classList.remove("hidden");
+  const loanElement = document.getElementById("loan");
+  if (loanElement) loanElement.classList.add("hidden");
+
+  const haveLoanElement = document.getElementById("haveLoan");
+  if (haveLoanElement) haveLoanElement.classList.add("hidden");
+
+  const noLoanElement = document.getElementById("noLoan");
+  if (noLoanElement) noLoanElement.classList.remove("hidden");
   am_loan.value = false;
-  document.getElementById("step2").classList.remove("hidden");
+  const step2Element = document.getElementById("step2");
+  if (step2Element) {
+    step2Element.classList.remove("hidden");
+  }
   checkFee.value = 0;
   is_loan.value = 0;
   carType.value = 0;

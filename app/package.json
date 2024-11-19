@@ -19,10 +19,12 @@
     "astro": "^4.15.8",
     "astro-bootstrap": "^0.7.0",
     "axios": "^1.7.7",
+    "dotenv": "^16.4.5",
     "express": "^4.21.0",
     "pdfmake": "^0.2.14",
     "pdfmake-font-generator": "^1.0.1",
     "typescript": "^5.6.2",
+    "vite-plugin-clear-console": "^0.2.3",
     "vue": "^3.5.12",
     "vue-sweetalert2": "^5.0.11"
   },

@@ -33,8 +33,9 @@
             export (id) {
 
                 const pdfData = ref([]);
+                const public_host = process.env.PUBLIC_HOST
 
-                axios.post('https://ref.paragonusedcars.com:2083/printPdf',{
+                axios.post(`${public_host}:2083/printPdf`,{
                     headet: {
                         'Content-Type': 'application/json',
                     },
@@ -162,8 +163,8 @@
                         }
                         pdfMake.fonts = {
                             Sarabun: {
-                                normal: 'https://ref.paragonusedcars.com/fonts/Sarabun-Regular.ttf',
-                                bold: 'https://ref.paragonusedcars.com/fonts/Sarabun-Bold.ttf',
+                                normal: `${public_host}/fonts/Sarabun-Regular.ttf`,
+                                bold: `${public_host}/fonts/Sarabun-Bold.ttf`,
                             }
                         }
                         pdfMake.createPdf(docDefinition).open({}, window)

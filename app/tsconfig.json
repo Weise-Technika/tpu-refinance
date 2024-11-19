@@ -1,6 +1,12 @@
 {
   "extends": "./node_modules/astro/tsconfigs/base",
   "compilerOptions": {
-    "jsx": "preserve"
-  }
+    "jsx": "preserve",
+    "module": "esnext",
+    "target": "es2020",
+    "moduleResolution": "node",
+    "strict": true
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/env.d.ts"],
+  "exclude": ["node_modules"]
 }
