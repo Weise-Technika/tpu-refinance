@@ -1,0 +1,28 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import QuotationList from '../../components/quotationList.vue';
+---
+<Layout title="Admin" description="Admin">
+    <main class="container">
+        <div class="cardx">
+            <h1>ใบเสนอราคาทั้งหมด</h1>
+            <QuotationList client:load />
+        </div>
+    </main>
+</Layout>
+
+<style>
+    .container {
+        max-width: 960px;
+    }
+    h1 {
+        font-size: 24px;
+        margin: 0 0 20px;
+    }
+    .cardx {
+        margin: 30px 0 0;
+        border-radius: 10px;
+        padding: 20px 15px;
+        background-color: #fff;
+    }
+</style>

@@ -37,24 +37,28 @@ import Layout from "../layouts/Layout.astro";
   };
   let deferredPrompt: BeforeInstallPromptEvent | null = null;
   const installBtn = document.getElementById("installBtn");
-  window.addEventListener("beforeinstallprompt", (e) => {
-    e.preventDefault();
-    deferredPrompt = e as BeforeInstallPromptEvent;
-    installBtn.style.display = "block";
+  if (installBtn) {
+    window.addEventListener("beforeinstallprompt", (e) => {
+      e.preventDefault();
+      deferredPrompt = e as BeforeInstallPromptEvent;
+      installBtn.style.display = "block";
 
-    installBtn.addEventListener("click", () => {
-      installBtn.style.display = "none";
-      deferredPrompt.prompt();
-      (deferredPrompt as any).userChoice.then(
-        (choiceResult: { outcome: string }) => {
-          if (choiceResult.outcome === "accepted") {
-            console.log("User accepted the install prompt");
-          } else {
-            console.log("User dismissed the install prompt");
-          }
-          deferredPrompt = null;
+      installBtn.addEventListener("click", () => {
+        installBtn.style.display = "none";
+        if (deferredPrompt) {
+          deferredPrompt.prompt();
+          deferredPrompt.userChoice.then(
+            (choiceResult: { outcome: string }) => {
+              if (choiceResult.outcome === "accepted") {
+                console.log("User accepted the install prompt");
+              } else {
+                console.log("User dismissed the install prompt");
+              }
+              deferredPrompt = null;
+            }
+          );
         }
-      );
+      });
     });
-  });
+  }
 </script>

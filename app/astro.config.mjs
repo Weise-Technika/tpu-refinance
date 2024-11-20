@@ -28,4 +28,5 @@ export default defineConfig({
     certificate: 'cert/certificate.pem',
     key: 'cert/private-key.pem'
   })
+  
 });
