@@ -6,7 +6,7 @@ services:
     ports:
       - "80:8080"
     # volumes:
-    #   - ./app:/app
+    #   - ./app/.env:/app/.env
     depends_on:
       - prisma
   prisma:
@@ -21,15 +21,3 @@ services:
       - DATABASE_URL=postgresql://postgres:postgres@db:5432/postgres?schema=public
     depends_on:
       - db
-  db:
-    image: postgres
-    container_name: db
-    restart: always
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: postgres
-    ports:
-      - "5432:5432"
-    # volumes:
-    #   - ./database:/var/lib/postgresql/data
