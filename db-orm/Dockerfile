@@ -11,4 +11,4 @@ COPY . .
 
 EXPOSE 3000
 
-CMD ["sh", "-c", "bunx prisma migrate deploy&&bun run seed.ts&&bun run index.ts --production"]
+CMD ["sh", "-c", "bun run index.ts --production"]
