@@ -8,8 +8,8 @@ services:
     environment:
       - PUBLIC_HOST=http://localhost
       # your hostname
-    volumes:
-      - ./cert/app:/usr/src/app/cert
+    # volumes:
+      # - ./cert/app:/usr/src/app/cert
 
     depends_on:
       - ref-orm
@@ -21,10 +21,10 @@ services:
     restart: always
     ports:
       - "2083:3000"
-    volumes:
+    # volumes:
       # - ./seed.ts:/usr/src/app/prisma/seed.ts
       # for use another seed file
-      - ./cert/orm:/usr/src/db-orm/cert
+      # - ./cert/orm:/usr/src/app/cert
     environment:
       - DATABASE_URL=postgresql://postgres:postgres@ref-db:5432/postgres?schema=public
       # set your database connection

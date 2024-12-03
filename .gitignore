@@ -1,5 +1,5 @@
 database_data
 runDocker
-db-orm/cert
 cert
 prisma
+.env
