@@ -10,6 +10,7 @@ import Layout from "../layouts/Layout.astro";
 	<div class="container">
 		<div class="row">
 			<div class="col-12">
+        
 				<div class="card">
 					<h1>ติดตั้งแอป</h1>
 					<p>คลิกที่ปุ่มด้านล่างเพื่อเพิ่มแอปคำนวณการรีไฟแนนซ์รถยนต์ลงในหน้าจอหลักของคุณ</p>
@@ -35,6 +36,7 @@ import Layout from "../layouts/Layout.astro";
     prompt: () => void;
     userChoice: Promise<{ outcome: string }>;
   };
+
   let deferredPrompt: BeforeInstallPromptEvent | null = null;
   const installBtn = document.getElementById("installBtn");
   if (installBtn) {

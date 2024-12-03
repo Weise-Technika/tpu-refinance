@@ -3,7 +3,8 @@ FROM oven/bun:latest
 WORKDIR /usr/src/app
 
 COPY package.json bun.lockb ./
-COPY prisma /usr/src/app/prisma
+
+COPY prisma ./prisma
 
 RUN bun install
 

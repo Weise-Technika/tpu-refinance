@@ -262,7 +262,7 @@
                       </td>
                     </tr>
 
-                    <tr>
+                    <!-- <tr>
                       <td>เงินมัดจำทำสัญญา</td>
                       <td>
                         <input
@@ -270,7 +270,7 @@
                           v-model="bookingFee"
                         />
                       </td>
-                    </tr>
+                    </tr> -->
 
                     <tr>
                       <td>2.1 ค่าทำสัญญาไฟแนนซ์</td>
@@ -862,7 +862,7 @@ const customerPhone = ref("");
 
 //ยอดสินเชื่อใหม่ตาม %
 const showLimitPrice = ref(0);
-const bookingFee = ref(2000);
+const bookingFee = ref(0);
 const bookingFnFee = ref(2000);
 const processFee = ref(10000);
 const checkFee = ref(0);
@@ -973,7 +973,6 @@ const newTotalRef = computed(() => {
 //Cost Cal
 const cost = computed(() => {
   let totalCost =
-    Number(bookingFee.value) +
     processFee.value +
     checkFee.value +
     transfer.value +

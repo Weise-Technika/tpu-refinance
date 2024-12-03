@@ -1,23 +1,55 @@
 services:
-  app:
-    build: ./app
-    container_name: app
+  ref-app:
+    image: tpu-refinance-app:0.1
+    container_name: ref-app
     restart: always
     ports:
       - "80:8080"
-    # volumes:
-    #   - ./app/.env:/app/.env
+    environment:
+      - PUBLIC_HOST=http://localhost
+      # your hostname
+    volumes:
+      - ./cert/app:/usr/src/app/cert
+
     depends_on:
-      - prisma
-  prisma:
-    build: ./db-orm
-    container_name: prisma
+      - ref-orm
+    networks:
+      - ref-network
+  ref-orm:
+    image: tpu-refinance-orm:0.2
+    container_name: ref-orm
     restart: always
     ports:
       - "2083:3000"
-    # volumes:
-    #   - ./db-orm:/app
+    volumes:
+      # - ./seed.ts:/usr/src/app/prisma/seed.ts
+      # for use another seed file
+      - ./cert/orm:/usr/src/db-orm/cert
     environment:
-      - DATABASE_URL=postgresql://postgres:postgres@db:5432/postgres?schema=public
+      - DATABASE_URL=postgresql://postgres:postgres@ref-db:5432/postgres?schema=public
+      # set your database connection
+      - APP=production
+      # APP: production,dev for use ssl on port 3000
     depends_on:
-      - db
+      - ref-db
+    networks:
+      - ref-network
+  ref-db:
+    image: postgres:latest
+    container_name: ref-db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+      #set your database user password and database name
+    ports:
+      - "5432:5432" 
+    volumes:
+      - ./database_data:/var/lib/postgresql/data
+    networks:
+      - ref-network
+
+networks:
+  ref-network:
+    driver: bridge
