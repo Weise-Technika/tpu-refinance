@@ -1,6 +1,7 @@
 services:
   ref-app:
-    image: refapp-lite:0.1
+    image: refapp-lite:11.0
+
     container_name: ref-app
     restart: always
     ports:
@@ -36,7 +37,7 @@ services:
       # set your database connection
       - DATABASE_URL=postgresql://postgres:postgres@ref-db:5432/postgres?schema=public
       # APP: production,dev for use ssl on port 3000
-      - APP=dev
+      - APP=production
     depends_on:
       - ref-db
     networks:
