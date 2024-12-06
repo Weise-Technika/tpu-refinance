@@ -1,7 +1,7 @@
 import { defineConfig } from 'astro/config';
 import vue from '@astrojs/vue';
 
-import cloudflare from '@astrojs/cloudflare';
+// import cloudflare from '@astrojs/cloudflare';
 import dotenv from 'dotenv';
 import clearConsole from 'vite-plugin-clear-console';
 
@@ -24,9 +24,9 @@ export default defineConfig({
     }
   },
   output: 'server',
-  adapter: cloudflare({
-    certificate: 'cert/certificate.pem',
-    key: 'cert/private-key.pem'
-  })
+  // adapter: cloudflare({
+  //   certificate: 'cert/certificate.pem',
+  //   key: 'cert/private-key.pem'
+  // })
   
 });
