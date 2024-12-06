@@ -9,7 +9,6 @@ dotenv.config();
 
 export default defineConfig({
   integrations: [vue()],
-
   vite: {
     logLevel: 'silent',
     server: {
@@ -17,6 +16,10 @@ export default defineConfig({
       watch: {
         usePolling: true
       },
+      https: true,
+      proxy: {
+        '/src': process.env.PUBLIC_HOST,
+      }
     },
     envPrefix: 'PUBLIC_',
     define: {

@@ -7,7 +7,7 @@ services:
       - "80:8080"
     environment:
       # your hostname
-      - PUBLIC_HOST=http://localhost
+      - PUBLIC_HOST=https://ref.paragonusedcars.com
     volumes:
       - ./cert/app:/usr/src/app/cert
     deploy:
