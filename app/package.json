@@ -4,14 +4,15 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev --port 8080",
-    "start": "astro dev --host --port 8080 --production",
+    "start": "bunx astro dev --host --port 8080 --production",
     "build": "astro check && astro build",
     "preview": "astro preview",
     "astro": "astro"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.3",
-    "@astrojs/cloudflare": "^11.1.0",
+    "@astrojs/cloudflare": "^12.0.1",
+    "@astrojs/image": "^0.18.0",
     "@astrojs/netlify": "^6.0.0",
     "@astrojs/node": "^9.0.0",
     "@astrojs/vue": "^4.5.1",
