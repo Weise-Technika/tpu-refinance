@@ -11,7 +11,7 @@ COPY . .
 RUN bun astro preferences disable devToolbar
 
 # Stage 2: Production
-FROM alpine:latest
+FROM oven/bun:alpine
 
 WORKDIR /usr/src/app
 
