@@ -10,4 +10,4 @@ COPY . .
 
 EXPOSE 8080
 
-CMD ["bun", "start", "--production"]
+CMD ["bun", "start"]
