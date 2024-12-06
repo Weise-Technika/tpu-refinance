@@ -24,9 +24,9 @@ export default defineConfig({
     }
   },
   output: 'server',
-  // adapter: cloudflare({
-  //   certificate: 'cert/certificate.pem',
-  //   key: 'cert/private-key.pem'
-  // })
+  adapter: cloudflare({
+    certificate: 'cert/certificate.pem',
+    key: 'cert/private-key.pem'
+  })
   
 });
