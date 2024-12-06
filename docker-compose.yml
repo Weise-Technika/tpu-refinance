@@ -1,35 +1,42 @@
 services:
   ref-app:
-    image: tpu-refinance-app:0.1
+    image: refapp-lite:0.1
     container_name: ref-app
     restart: always
     ports:
       - "80:8080"
     environment:
-      - PUBLIC_HOST=http://localhost
       # your hostname
-    # volumes:
-      # - ./cert/app:/usr/src/app/cert
-
+      - PUBLIC_HOST=http://localhost
+    volumes:
+      - ./cert/app:/usr/src/app/cert
+    deploy:
+      resources:
+        limits:
+          memory: 512m
+          cpus: "0.5"
     depends_on:
       - ref-orm
     networks:
       - ref-network
   ref-orm:
-    image: tpu-refinance-orm:0.2
+    image: reform-lite:0.1
     container_name: ref-orm
     restart: always
     ports:
       - "2083:3000"
-    # volumes:
-      # - ./seed.ts:/usr/src/app/prisma/seed.ts
-      # for use another seed file
-      # - ./cert/orm:/usr/src/app/cert
+    volumes:
+      - ./cert/orm:/usr/src/app/cert
+    deploy:
+      resources:
+        limits:
+          memory: 512m
+          cpus: "0.5"
     environment:
-      - DATABASE_URL=postgresql://postgres:postgres@ref-db:5432/postgres?schema=public
       # set your database connection
-      - APP=production
+      - DATABASE_URL=postgresql://postgres:postgres@ref-db:5432/postgres?schema=public
       # APP: production,dev for use ssl on port 3000
+      - APP=dev
     depends_on:
       - ref-db
     networks:
@@ -44,9 +51,14 @@ services:
       POSTGRES_DB: postgres
       #set your database user password and database name
     ports:
-      - "5432:5432" 
+      - "5432:5432"
     volumes:
       - ./database_data:/var/lib/postgresql/data
+    deploy:
+      resources:
+        limits:
+          memory: 1g
+          cpus: "1.0"
     networks:
       - ref-network
 

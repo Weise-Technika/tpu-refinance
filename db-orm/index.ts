@@ -159,7 +159,7 @@ app.post('/printPdf', async (req,res) => {
 });
 
 
-// if (process.env.APP === 'production') {
+if (process.env.APP === 'production') {
     const sslOptions = {
         key: fs.readFileSync('cert/private-key.pem'),
         cert: fs.readFileSync('cert/certificate.pem')
@@ -168,8 +168,8 @@ app.post('/printPdf', async (req,res) => {
     https.createServer(sslOptions, app).listen(3000, () => {
         console.log('Server is running on https://localhost:3000');
     });
-// } else if (process.env.APP === 'dev') {
-//     app.listen(3000, () => {
-//         console.log('Server is running on http://localhost:3000');
-//     });
-// } 
+ } else if (process.env.APP === 'dev') {
+     app.listen(3000, () => {
+        console.log('Server is running on http://localhost:3000');
+     });
+ } 
