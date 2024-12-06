@@ -2,7 +2,7 @@
 database_data
 runDocker
 .env
-cert
+# cert
 
 
 # build output
