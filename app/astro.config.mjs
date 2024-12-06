@@ -23,6 +23,9 @@ export default defineConfig({
       'process.env': process.env
     }
   },
+  devOptions: {
+    devToolbar: false,
+  },
   output: 'server',
   adapter: cloudflare({
     certificate: 'cert/certificate.pem',

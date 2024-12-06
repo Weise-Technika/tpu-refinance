@@ -35,8 +35,6 @@ RUN bun install --production
 
 COPY . .
 
-RUN bun astro preferences disable devToolbar
-
 # Stage 2: Production
 FROM oven/bun:alpine
 
