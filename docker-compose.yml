@@ -1,6 +1,6 @@
 services:
   ref-app:
-    image: refapp-lite:1.0
+    image: refapp-lite:11.0
     container_name: ref-app
     restart: always
     ports:
@@ -8,6 +8,8 @@ services:
     environment:
       # your hostname
       - PUBLIC_HOST=https://ref.paragonusedcars.com
+    volumes:
+      - ./cert/app:/usr/src/app/cert
     deploy:
       resources:
         limits:
@@ -18,7 +20,7 @@ services:
     networks:
       - ref-network
   ref-orm:
-    image: reform-lite:1.0
+    image: reform-lite:11.0
     container_name: ref-orm
     restart: always
     ports:
@@ -30,9 +32,11 @@ services:
           cpus: "0.5"
     environment:
       # set your database connection
-
+      
       # APP: production,dev for use ssl on port 3000
       - APP=production
+    volumes:
+      - ./cert/orm:/usr/src/app/cert
     networks:
       - ref-network
 
