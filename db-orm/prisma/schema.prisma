@@ -15,6 +15,20 @@ datasource db {
 
 model finance_price {
   id        String   @id @default(cuid())
+  priceKey  String
+  brand     String   
+  title     String
+  gen       String
+  year      Int
+  price     Int
+  group     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model tradein_price {
+  id        String   @id @default(cuid())
+  priceKey  String
   brand     String   
   title     String
   gen       String
