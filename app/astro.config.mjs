@@ -9,11 +9,10 @@ dotenv.config();
 
 export default defineConfig({
   integrations: [vue()],
-
   vite: {
     logLevel: 'silent',
+    plugins: [clearConsole()],
     server: {
-      plugins: [clearConsole()],
       watch: {
         usePolling: true
       },
@@ -27,8 +26,5 @@ export default defineConfig({
   adapter: cloudflare({
     certificate: 'cert/certificate.pem',
     key: 'cert/private-key.pem'
-  }),
-  devOptions: {
-    devToolbar: false
-  }
+  })
 });

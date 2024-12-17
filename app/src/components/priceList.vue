@@ -9,11 +9,11 @@
 
         <div class="card-rf mt-3">
           <div class="row mt-3 mb-2">
-            <p>ราคาอัพเดท : 20 พ.ย. 2567</p>
+            <p>ราคาอัพเดท : 13 ธ.ค. 2567</p>
             <div class="col-12">
               <div class="mb-3">
-                <select @change="getTitle($event)" class="form-select">
-                  <option value="0">= โปรดเลือกยี่ห้อรถยนต์ =</option>
+                <select @change="getTitle($event)" class="form-select multi-select">
+                  <option value="0">โปรดเลือกยี่ห้อรถยนต์</option>
                   <option v-for="data in priceList" :key="data" :value="data">
                     {{ data }}
                   </option>
@@ -22,10 +22,10 @@
               <div class="mb-3">
                 <select
                   @change="getYear($event)"
-                  class="form-select hidden"
+                  class="form-select multi-select  hidden"
                   id="title"
                 >
-                  <option value="0">= โปรดเลือกรุ่นรถยนต์ =</option>
+                  <option value="0">โปรดเลือกรุ่นรถยนต์</option>
                   <option v-for="data in titleList" :key="data" :value="data">
                     {{ data }}
                   </option>
@@ -34,10 +34,10 @@
               <div class="mb-3">
                 <select
                   @change="getGen($event)"
-                  class="form-select hidden"
+                  class="form-select multi-select  hidden"
                   id="year"
                 >
-                  <option value="0">= โปรดเลือกปีรถยนต์ =</option>
+                  <option value="0">โปรดเลือกปีรถยนต์</option>
                   <option v-for="data in yearList" :key="data" :value="data">
                     {{ data }}
                   </option>
@@ -47,10 +47,10 @@
               <div class="mb-3">
                 <select
                   @change="getPrice($event)"
-                  class="form-select hidden"
+                  class="form-select multi-select  hidden"
                   id="gen"
                 >
-                  <option value="0">= โปรดเลือกรุ่นย่อยรถยนต์ =</option>
+                  <option value="0">โปรดเลือกรุ่นย่อยรถยนต์</option>
                   <option v-for="data in genList" :key="data" :value="data">
                     {{ data }}
                   </option>
@@ -116,7 +116,7 @@
                 <div class="col-12">
                   <p class="mb-2">จำนวนยอดคงค้างคงเหลือ</p>
                   <input
-                    class="form-control mt-1"
+                    class="form-control mt-1 input-theme"
                     type="number"
                     v-model="is_loan"
                   />
@@ -535,9 +535,9 @@
               <div class="row mt-2">
                   <div class="col-12">
                     <p>ข้อมูลลูกค้าที่คุณจะเสนอราคา</p>
-                    <input class="form-control" type="text" placeholder="ชื่อ-นามสกุล" v-model="customerName" />
-                    <input class="form-control mt-3" type="text" id="telno" placeholder="เบอร์โทรศัพท์" :maxlength="10" v-model="customerPhone"/>
-                    <input class="form-control mt-3" type="text" placeholder="เลขทะเบียนรถยนต์" v-model="carLicense" />
+                    <input class="form-control input-theme" type="text" placeholder="ชื่อ-นามสกุล" v-model="customerName" />
+                    <input class="form-control mt-3 input-theme" type="text" id="telno" placeholder="เบอร์โทรศัพท์" :maxlength="10" v-model="customerPhone"/>
+                    <input class="form-control mt-3 input-theme" type="text" placeholder="เลขทะเบียนรถยนต์" v-model="carLicense" />
                   </div>
 
                   <div class="col-12 mt-2">
@@ -560,6 +560,7 @@
 </template>
 
 <style>
+
   @media (min-width: 768px) {
     .container {
       width: 980px;
@@ -648,6 +649,37 @@
   }
   .content-center {
     text-align: center;
+  }
+  .multi-select {
+    align-items: center;
+    padding: 5px 55px 5px 24px;
+    height: 48px;
+    width: 100%;
+    border-radius: 24px;
+    border: 1px solid #e0e0e0;
+    background: #fff;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cpath fill='none' d='M7 10L12 15L17 10' stroke='%23000000' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    appearance: none;
+  }
+  .input-theme {
+      width: 100%;
+      border-radius: 6px;
+      font-size: 1.125rem;
+      font-weight: 500;
+      box-shadow: none;
+      padding: 12px 16px;
+      border: 1px solid #ccc;
+      height: 48px;
+      color: #444;
+      transition: border-color .3s ease;
+      border-radius: 24px;
+      font-size: 16px;
+      line-height: 24px;
+      letter-spacing: 0;
+      text-align: left;
+      border: 1px solid #e0e0e0;
   }
 </style>
 

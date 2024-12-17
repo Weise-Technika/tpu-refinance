@@ -14,6 +14,8 @@ WORKDIR /usr/src/app
 
 COPY --from=builder /usr/src/app /usr/src/app
 
+RUN bun astro preferences disable --global devToolbar
+
 EXPOSE 8080
 
 CMD ["bun", "start"]
