@@ -1035,7 +1035,7 @@ const public_host = process.env.PUBLIC_HOST;
 
 onMounted(async () => {
   try {
-    const response = await axios.get(`${public_host}:2083/priceCarsBrand/1`);
+    const response = await axios.get(`${public_host}:2083/priceCarsBrand/2`);
     priceList.value = Array.isArray(response.data) ? response.data : [];
     titleList.value = [];
     yearList.value = [];
@@ -1050,7 +1050,7 @@ const getTitle = async (event) => {
   dataBrand.value = event.target.value;
   try {
     const response = await axios.get(
-      `${public_host}:2083/priceCarsBrand/1/${dataBrand.value}`
+      `${public_host}:2083/priceCarsBrand/2/${dataBrand.value}`
     );
     titleList.value = Array.isArray(response.data) ? response.data : [];
     yearList.value = [];
@@ -1072,7 +1072,7 @@ const getYear = async (event) => {
   dataTitle.value = event.target.value;
   try {
     const response = await axios.get(
-      `${public_host}:2083/priceCarsBrand/1/${dataBrand.value}/${dataTitle.value}`
+      `${public_host}:2083/priceCarsBrand/2/${dataBrand.value}/${dataTitle.value}`
     );
     yearList.value = Array.isArray(response.data) ? response.data : [];
     genList.value = [];
@@ -1096,7 +1096,7 @@ const getGen = async (event) => {
       genList.value = [];
     } else {
       const response = await axios.get(
-        `${public_host}:2083/priceCarsBrand/1/${dataBrand.value}/${dataTitle.value}/${dataGen.value}`
+        `${public_host}:2083/priceCarsBrand/2/${dataBrand.value}/${dataTitle.value}/${dataGen.value}`
       );
       genList.value = Array.isArray(response.data) ? response.data : [];
     }
@@ -1117,7 +1117,7 @@ const getPrice = async (event) => {
   dataPrice.value = event.target.value;
   try {
     const response = await axios.get(
-      `${public_host}:2083/priceCarsBrand/1/${dataBrand.value}/${dataTitle.value}/${dataGen.value}/${dataPrice.value}`
+      `${public_host}:2083/priceCarsBrand/2/${dataBrand.value}/${dataTitle.value}/${dataGen.value}/${dataPrice.value}`
     );
     const totalPrice = Number(response.data);
     dataPrice.value = totalPrice.toString();
