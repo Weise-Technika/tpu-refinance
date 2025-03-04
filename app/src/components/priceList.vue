@@ -9,7 +9,7 @@
 
         <div class="card-rf mt-3">
           <div class="row mt-3 mb-2">
-            <p>ราคาอัพเดท : 16 ม.ค. 2568</p>
+            <p>ราคาอัพเดท : 13 ก.พ. 2568</p>
             <div class="col-12">
               <div class="mb-3">
                 <select @change="getTitle($event)" class="form-select multi-select">

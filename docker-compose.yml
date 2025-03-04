@@ -1,6 +1,6 @@
 services:
   ref-app:
-    image: refapp-lite:11.0
+    image: refapp-lite:2.0
     container_name: ref-app
     restart: always
     ports:
@@ -20,7 +20,7 @@ services:
     networks:
       - ref-network
   ref-orm:
-    image: reform-lite:11.0
+    image: reform-lite:2.0
     container_name: ref-orm
     restart: always
     ports:
